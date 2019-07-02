@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  10   /* Version 10 */
+#define UTF_H_  11  /* Version 11 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -66,13 +66,8 @@ typedef uint8_t UTF_UC8;
     #endif
 #endif
 
-#ifndef UTF_TRUNCATABLE
-    #define UTF_TRUNCATABLE true
-#endif
-
 enum UTF_RET
 {
-    UTF_FOLDED = -1,
     UTF_INVALID = 0,
     UTF_SUCCESS = 1,
     UTF_INSUFFICIENT_BUFFER = 2
@@ -403,7 +398,6 @@ UTF_uj8_to_uj16(const UTF_UC8 *uj8, size_t uj8size, UTF_UC16 *uj16, size_t uj16s
                 *uj16 = 0;
                 return UTF_INSUFFICIENT_BUFFER;
             }
-
             *uj16++ = UTF_DEFAULT_CHAR;
             continue;
         }
@@ -413,11 +407,19 @@ UTF_uj8_to_uj16(const UTF_UC8 *uj8, size_t uj8size, UTF_UC16 *uj16, size_t uj16s
         {
             if (++uj8 == uj8end)
             {
-                *uj16 = 0;
-                if (UTF_TRUNCATABLE)
-                    return UTF_FOLDED;
-                else
+                if (!UTF_DEFAULT_CHAR)
+                {
+                    *uj16 = 0;
                     return UTF_INVALID;
+                }
+                if (uj16 == uj16end)
+                {
+                    *uj16 = 0;
+                    return UTF_INSUFFICIENT_BUFFER;
+                }
+                *uj16++ = UTF_DEFAULT_CHAR;
+                *uj16 = 0;
+                return UTF_SUCCESS;
             }
             uc8[i] = *uj8;
         }
@@ -488,17 +490,24 @@ UTF_uj8_to_uj32(const UTF_UC8 *uj8, size_t uj8size, UTF_UC32 *uj32, size_t uj32s
         }
         else
         {
-
             uc8[0] = *uj8;
             for (i = 1; i < count; ++i)
             {
                 if (++uj8 == uj8end)
                 {
-                    *uj32 = 0;
-                    if (UTF_TRUNCATABLE)
-                        return UTF_FOLDED;
-                    else
+                    if (!UTF_DEFAULT_CHAR)
+                    {
+                        *uj32 = 0;
                         return UTF_INVALID;
+                    }
+                    if (uj32 == uj32end)
+                    {
+                        *uj32 = 0;
+                        return UTF_INSUFFICIENT_BUFFER;
+                    }
+                    *uj32++ = UTF_DEFAULT_CHAR;
+                    *uj32 = 0;
+                    return UTF_SUCCESS;
                 }
                 uc8[i] = *uj8;
             }
@@ -547,11 +556,19 @@ UTF_uj16_to_uj8(const UTF_UC16 *uj16, size_t uj16size, UTF_UC8 *uj8, size_t uj8s
             uc16[0] = *uj16;
             if (++uj16 == uj16end)
             {
-                *uj8 = 0;
-                if (UTF_TRUNCATABLE)
-                    return UTF_FOLDED;
-                else
+                if (!UTF_DEFAULT_CHAR)
+                {
+                    *uj8 = 0;
                     return UTF_INVALID;
+                }
+                if (uj8 == uj8end)
+                {
+                    *uj8 = 0;
+                    return UTF_INSUFFICIENT_BUFFER;
+                }
+                *uj8++ = UTF_DEFAULT_CHAR;
+                *uj8 = 0;
+                return UTF_SUCCESS;
             }
             uc16[1] = *uj16;
         }
@@ -639,11 +656,19 @@ UTF_uj16_to_uj32(const UTF_UC16 *uj16, size_t uj16size, UTF_UC32 *uj32, size_t u
             uc16[0] = *uj16;
             if (++uj16 == uj16end)
             {
-                *uj32 = 0;
-                if (UTF_TRUNCATABLE)
-                    return UTF_FOLDED;
-                else
+                if (!UTF_DEFAULT_CHAR)
+                {
+                    *uj32 = 0;
                     return UTF_INVALID;
+                }
+                if (uj32 == uj32end)
+                {
+                    *uj32 = 0;
+                    return UTF_INSUFFICIENT_BUFFER;
+                }
+                *uj32++ = UTF_DEFAULT_CHAR;
+                *uj32 = 0;
+                return UTF_SUCCESS;
             }
             uc16[1] = *uj16;
         }

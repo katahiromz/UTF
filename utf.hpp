@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_HPP_
-#define UTF_HPP_    2   // Version 2
+#define UTF_HPP_    3   // Version 3
 
 #include "utf.h"
 
@@ -39,8 +39,7 @@ typedef std::basic_string<UTF_UC8> UTF_US8;
     #endif
 #endif
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_u8_to_u(const UTF_US8& us8, UTF_US16& us16)
 {
@@ -65,10 +64,11 @@ UTF_u8_to_u(const UTF_US8& us8, UTF_US16& us16)
             ++it;
             if (it == end)
             {
-                if (t_truncatable)
-                    break;
+                if (!t_default_char)
+                    return false;
 
-                return false;
+                us16.push_back(UTF_STATIC_CAST(UTF_UC8, t_default_char));
+                return true;
             }
 
             uc8[i] = *it;
@@ -90,16 +90,14 @@ UTF_u8_to_u(const UTF_US8& us8, UTF_US16& us16)
     return true;
 }
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_u8_to_u(const UTF_S8& s8, UTF_US16& us16)
 {
-    return UTF_u8_to_u<t_default_char, t_truncatable>(reinterpret_cast<const UTF_US8&>(s8), us16);
+    return UTF_u8_to_u<t_default_char>(reinterpret_cast<const UTF_US8&>(s8), us16);
 }
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_u8_to_U(const UTF_US8& us8, UTF_US32& us32)
 {
@@ -124,10 +122,11 @@ UTF_u8_to_U(const UTF_US8& us8, UTF_US32& us32)
             ++it;
             if (it == end)
             {
-                if (t_truncatable)
-                    break;
+                if (!t_default_char)
+                    return false;
 
-                return false;
+                us32.push_back(UTF_STATIC_CAST(UTF_UC8, t_default_char));
+                return true;
             }
             uc8[i] = *it;
         }
@@ -146,16 +145,14 @@ UTF_u8_to_U(const UTF_US8& us8, UTF_US32& us32)
     return true;
 }
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_u8_to_U(const UTF_S8& s8, UTF_US32& us32)
 {
-    return UTF_u8_to_U<t_default_char, t_truncatable>(reinterpret_cast<const UTF_US8&>(s8), us32);
+    return UTF_u8_to_U<t_default_char>(reinterpret_cast<const UTF_US8&>(s8), us32);
 }
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_u_to_u8(const UTF_US16& us16, UTF_US8& us8)
 {
@@ -170,10 +167,11 @@ UTF_u_to_u8(const UTF_US16& us16, UTF_US8& us8)
             ++it;
             if (it == end)
             {
-                if (t_truncatable)
-                    break;
+                if (!t_default_char)
+                    return false;
 
-                return false;
+                us8.push_back(UTF_STATIC_CAST(UTF_UC8, t_default_char));
+                return true;
             }
 
             uc16[1] = *it;
@@ -211,16 +209,14 @@ UTF_u_to_u8(const UTF_US16& us16, UTF_US8& us8)
     return true;
 }
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_u_to_u8(const UTF_US16& us16, UTF_S8& s8)
 {
-    return UTF_u_to_u8<t_default_char, t_truncatable>(us16, reinterpret_cast<UTF_US8&>(s8));
+    return UTF_u_to_u8<t_default_char>(us16, reinterpret_cast<UTF_US8&>(s8));
 }
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_u_to_U(const UTF_US16& us16, UTF_US32& us32)
 {
@@ -235,10 +231,11 @@ UTF_u_to_U(const UTF_US16& us16, UTF_US32& us32)
             ++it;
             if (it == end)
             {
-                if (t_truncatable)
-                    break;
+                if (!t_default_char)
+                    return false;
 
-                return false;
+                us32.push_back(UTF_STATIC_CAST(UTF_UC8, t_default_char));
+                return true;
             }
 
             uc16[1] = *it;
@@ -263,8 +260,7 @@ UTF_u_to_U(const UTF_US16& us16, UTF_US32& us32)
     return true;
 }
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_U_to_u8(const UTF_US32& us32, UTF_US8& us8)
 {
@@ -299,16 +295,14 @@ UTF_U_to_u8(const UTF_US32& us32, UTF_US8& us8)
     return true;
 }
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_U_to_u8(const UTF_US32& us32, UTF_S8& s8)
 {
-    return UTF_U_to_u8<t_default_char, t_truncatable>(us32, reinterpret_cast<UTF_US8&>(s8));
+    return UTF_U_to_u8<t_default_char>(us32, reinterpret_cast<UTF_US8&>(s8));
 }
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_U_to_u(const UTF_US32& us32, UTF_US16& us16)
 {
@@ -335,8 +329,7 @@ UTF_U_to_u(const UTF_US32& us32, UTF_US16& us16)
     return true;
 }
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_u8_to_u8(const UTF_US8& src, UTF_US8& dest)
 {
@@ -344,8 +337,7 @@ UTF_u8_to_u8(const UTF_US8& src, UTF_US8& dest)
     return true;
 }
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_u_to_u(const UTF_US16& src, UTF_US16& dest)
 {
@@ -353,8 +345,7 @@ UTF_u_to_u(const UTF_US16& src, UTF_US16& dest)
     return true;
 }
 
-template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR),
-          bool t_truncatable UTF_OPT_(UTF_TRUNCATABLE)>
+template <char t_default_char UTF_OPT_(UTF_DEFAULT_CHAR)>
 inline bool
 UTF_U_to_U(const UTF_US32& src, UTF_US32& dest)
 {
