@@ -335,7 +335,8 @@ UTF_uc16_to_uc32(const UTF_UC16 uc16[4], UTF_UC32 *uc32)
     {
         if (UTF_uc16_is_surrogate_low(uc16[1]))
         {
-            *uc32 = 0x10000 + (UTF_STATIC_CAST(UTF_UC32, uc16[0]) - 0xD800) * 0x400 + (UTF_STATIC_CAST(UTF_UC32, uc16[1]) - 0xDC00);
+            *uc32 = 0x10000 + (UTF_STATIC_CAST(UTF_UC32, uc16[0]) - 0xD800) * 0x400 +
+                    (UTF_STATIC_CAST(UTF_UC32, uc16[1]) - 0xDC00);
             return true;
         }
         else if (uc16[1] == 0)
