@@ -215,8 +215,7 @@ UTF_uj8_cmpn(const UTF_UC8 *uj8a, const UTF_UC8 *uj8b, UTF_SIZE_T len)
 {
     while (*uj8a && *uj8b)
     {
-        if (len-- == 0)
-            break;
+        if (len-- == 0) return 0;
         if (*uj8a < *uj8b) return -1;
         if (*uj8a > *uj8b) return 1;
         ++uj8a;
@@ -232,8 +231,7 @@ UTF_j8_cmpn(const UTF_C8 *j8a, const UTF_C8 *j8b, UTF_SIZE_T len)
 {
     while (*j8a && *j8b)
     {
-        if (len-- == 0)
-            break;
+        if (len-- == 0) return 0;
         if (*j8a < *j8b) return -1;
         if (*j8a > *j8b) return 1;
         ++j8a;
@@ -249,8 +247,7 @@ UTF_uj16_cmpn(const UTF_UC16 *uj16a, const UTF_UC16 *uj16b, UTF_SIZE_T len)
 {
     while (*uj16a && *uj16b)
     {
-        if (len-- == 0)
-            break;
+        if (len-- == 0) return 0;
         if (*uj16a < *uj16b) return -1;
         if (*uj16a > *uj16b) return 1;
         ++uj16a;
@@ -266,8 +263,7 @@ UTF_uj32_cmpn(const UTF_UC32 *uj32a, const UTF_UC32 *uj32b, UTF_SIZE_T len)
 {
     while (*uj32a && *uj32b)
     {
-        if (len-- == 0)
-            break;
+        if (len-- == 0) return 0;
         if (*uj32a < *uj32b) return -1;
         if (*uj32a > *uj32b) return 1;
         ++uj32a;
