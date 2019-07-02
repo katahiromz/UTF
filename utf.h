@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  11  /* Version 11 */
+#define UTF_H_  13  /* Version 13 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -398,7 +398,7 @@ UTF_uj8_to_uj16(const UTF_UC8 *uj8, size_t uj8size, UTF_UC16 *uj16, size_t uj16s
                 *uj16 = 0;
                 return UTF_INSUFFICIENT_BUFFER;
             }
-            *uj16++ = UTF_DEFAULT_CHAR;
+            *uj16++ = UTF_STATIC_CAST(UTF_UC8, UTF_DEFAULT_CHAR);
             continue;
         }
 
@@ -417,7 +417,7 @@ UTF_uj8_to_uj16(const UTF_UC8 *uj8, size_t uj8size, UTF_UC16 *uj16, size_t uj16s
                     *uj16 = 0;
                     return UTF_INSUFFICIENT_BUFFER;
                 }
-                *uj16++ = UTF_DEFAULT_CHAR;
+                *uj16++ = UTF_STATIC_CAST(UTF_UC8, UTF_DEFAULT_CHAR);
                 *uj16 = 0;
                 return UTF_SUCCESS;
             }
@@ -505,7 +505,7 @@ UTF_uj8_to_uj32(const UTF_UC8 *uj8, size_t uj8size, UTF_UC32 *uj32, size_t uj32s
                         *uj32 = 0;
                         return UTF_INSUFFICIENT_BUFFER;
                     }
-                    *uj32++ = UTF_DEFAULT_CHAR;
+                    *uj32++ = UTF_STATIC_CAST(UTF_UC8, UTF_DEFAULT_CHAR);
                     *uj32 = 0;
                     return UTF_SUCCESS;
                 }
@@ -566,7 +566,7 @@ UTF_uj16_to_uj8(const UTF_UC16 *uj16, size_t uj16size, UTF_UC8 *uj8, size_t uj8s
                     *uj8 = 0;
                     return UTF_INSUFFICIENT_BUFFER;
                 }
-                *uj8++ = UTF_DEFAULT_CHAR;
+                *uj8++ = UTF_STATIC_CAST(UTF_UC8, UTF_DEFAULT_CHAR);
                 *uj8 = 0;
                 return UTF_SUCCESS;
             }
@@ -666,7 +666,7 @@ UTF_uj16_to_uj32(const UTF_UC16 *uj16, size_t uj16size, UTF_UC32 *uj32, size_t u
                     *uj32 = 0;
                     return UTF_INSUFFICIENT_BUFFER;
                 }
-                *uj32++ = UTF_DEFAULT_CHAR;
+                *uj32++ = UTF_STATIC_CAST(UTF_UC8, UTF_DEFAULT_CHAR);
                 *uj32 = 0;
                 return UTF_SUCCESS;
             }
