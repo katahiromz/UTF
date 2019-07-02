@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  2   /* Version 2 */
+#define UTF_H_  3   /* Version 3 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -27,7 +27,7 @@
     #define UTF_REINTERPRET_CAST(type, value) ((type)(value))
 #endif
 
-/* UTF_C8, UTF_UC8, UTF_UC16, UTF_UC32 --- unsigned characters */
+/* UTF_C8, UTF_UC8, UTF_UC16, UTF_UC32 --- characters */
 typedef char UTF_C8;
 typedef uint8_t UTF_UC8;
 #if defined(__cplusplus) && __cplusplus >= 201103L  /* C++11 */
