@@ -1,0 +1,54 @@
+# CMakeLists.txt --- CMake project settings
+#    ex) cmake -G "Visual Studio 9 2008" .
+#    ex) cmake -DCMAKE_BUILD_TYPE=Release -G "MSYS Makefiles" .
+##############################################################################
+
+# CMake minimum version
+cmake_minimum_required(VERSION 2.4)
+
+# enable testing
+enable_testing()
+
+# project name and language
+project(UTF LANGUAGES C CXX)
+
+if (WIN32)
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        # using Clang
+        set(CMAKE_C_FLAGS "-static -s")
+        set(CMAKE_CXX_FLAGS "-static -s")
+    elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        # using GCC
+        set(CMAKE_C_FLAGS "-static -static-libgcc -static-libstdc++ -s")
+        set(CMAKE_CXX_FLAGS "-static -static-libgcc -static-libstdc++ -s")
+    elseif (MSVC)
+        # replace "/MD" with "/MT" (building without runtime DLLs)
+        set(CompilerFlags
+            CMAKE_C_FLAGS
+            CMAKE_C_FLAGS_DEBUG
+            CMAKE_C_FLAGS_RELEASE
+            CMAKE_C_FLAGS_RELWITHDEBINFO
+            CMAKE_CXX_FLAGS
+            CMAKE_CXX_FLAGS_DEBUG
+            CMAKE_CXX_FLAGS_RELEASE
+            CMAKE_CXX_FLAGS_RELWITHDEBINFO)
+        foreach(CompilerFlags ${CompilerFlags})
+            string(REPLACE "/MD" "/MT" ${CompilerFlags} "${${CompilerFlags}}")
+        endforeach()
+    endif()
+endif()
+
+##############################################################################
+
+option(WIDE_IS_UTF16 "Wide string is UTF-16" OFF)
+if (WIDE_IS_UTF16)
+    add_definitions(-DUTF_WIDE_IS_UTF16)
+endif()
+
+# executable
+add_executable(utf-test utf-test.cpp)
+
+# test
+add_test(NAME utf-test COMMAND $<TARGET_FILE:utf-test>)
+
+##############################################################################
