@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  13  /* Version 13 */
+#define UTF_H_  14  /* Version 14 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -175,7 +175,7 @@ UTF_j8_cmp(const UTF_C8 *j8a, const UTF_C8 *j8b)
     return 0;
 }
 
-static __inline bool
+static __inline int
 UTF_uj16_cmp(const UTF_UC16 *uj16a, const UTF_UC16 *uj16b)
 {
     while (*uj16a && *uj16b)
@@ -190,7 +190,7 @@ UTF_uj16_cmp(const UTF_UC16 *uj16a, const UTF_UC16 *uj16b)
     return 0;
 }
 
-static __inline bool
+static __inline int
 UTF_uj32_cmp(const UTF_UC32 *uj32a, const UTF_UC32 *uj32b)
 {
     while (*uj32a && *uj32b)
