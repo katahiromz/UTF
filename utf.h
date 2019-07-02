@@ -339,7 +339,6 @@ UTF_uc16_to_uc32(const UTF_UC16 uc16[4], UTF_UC32 *uc32)
             *uc32 = uc16[0];
             return true;
         }
-
         return false;
     }
     else if (UTF_uc16_is_surrogate_low(uc16[0]))
@@ -449,11 +448,9 @@ UTF_uj8_to_uj16(const UTF_UC8 *uj8, size_t uj8size, UTF_UC16 *uj16, size_t uj16s
                 *uj16 = 0;
                 return UTF_INSUFFICIENT_BUFFER;
             }
-
             *uj16++ = uc16[1];
         }
     }
-
     *uj16 = 0;
     return UTF_SUCCESS;
 }
@@ -527,7 +524,6 @@ UTF_uj8_to_uj32(const UTF_UC8 *uj8, size_t uj8size, UTF_UC32 *uj32, size_t uj32s
 
         *uj32++ = uc32;
     }
-
     *uj32 = 0;
     return UTF_SUCCESS;
 }
@@ -621,13 +617,11 @@ UTF_uj16_to_uj8(const UTF_UC16 *uj16, size_t uj16size, UTF_UC8 *uj8, size_t uj8s
                         *uj8 = 0;
                         return UTF_INSUFFICIENT_BUFFER;
                     }
-
                     *uj8++ = uc8[3];
                 }
             }
         }
     }
-
     *uj8 = 0;
     return UTF_SUCCESS;
 }
@@ -693,10 +687,8 @@ UTF_uj16_to_uj32(const UTF_UC16 *uj16, size_t uj16size, UTF_UC32 *uj32, size_t u
             *uj32 = 0;
             return UTF_INSUFFICIENT_BUFFER;
         }
-
         *uj32++ = uc32;
     }
-
     *uj32 = 0;
     return UTF_SUCCESS;
 }
@@ -756,13 +748,11 @@ UTF_uj32_to_uj8(const UTF_UC32 *uj32, size_t uj32size, UTF_UC8 *uj8, size_t uj8s
                         *uj8 = 0;
                         return UTF_INSUFFICIENT_BUFFER;
                     }
-
                     *uj8++ = uc8[3];
                 }
             }
         }
     }
-
     *uj8 = 0;
     return UTF_SUCCESS;
 }
@@ -810,11 +800,9 @@ UTF_uj32_to_uj16(const UTF_UC32 *uj32, size_t uj32size, UTF_UC16 *uj16, size_t u
                 *uj16 = 0;
                 return UTF_INSUFFICIENT_BUFFER;
             }
-
             *uj16++ = uc16[1];
         }
     }
-
     *uj16 = 0;
     return UTF_SUCCESS;
 }
