@@ -2,14 +2,14 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  1   /* Version 1 */
+#define UTF_H_  2   /* Version 2 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
-#if defined(__cplusplus) && __cplusplus >= 201103L
+#if defined(__cplusplus) && __cplusplus >= 201103L  /* C++11 */
     #include <cstdbool>
     #include <cstdint>
-#elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
+#elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L  /* C99 */
     #include <stdbool.h>
     #include <stdint.h>
 #else
@@ -30,7 +30,7 @@
 /* UTF_C8, UTF_UC8, UTF_UC16, UTF_UC32 --- unsigned characters */
 typedef char UTF_C8;
 typedef uint8_t UTF_UC8;
-#if defined(__cplusplus) && __cplusplus >= 201103L
+#if defined(__cplusplus) && __cplusplus >= 201103L  /* C++11 */
     #ifdef UTF_WIDE_IS_UTF16
         typedef wchar_t UTF_UC16;
     #else
@@ -57,6 +57,10 @@ typedef uint8_t UTF_UC8;
     #else
         #define UTF_WIDE(str) u##str
     #endif
+#endif
+
+#ifndef UTF_TRUNCATABLE
+    #define UTF_TRUNCATABLE true
 #endif
 
 enum UTF_RET
