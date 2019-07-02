@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  17  /* Version 17 */
+#define UTF_H_  18  /* Version 18 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -668,7 +668,6 @@ UTF_uj16_to_uj8(const UTF_UC16 *uj16, UTF_SIZE_T uj16size, UTF_UC8 *uj8, UTF_SIZ
                 *uj8 = 0;
                 return UTF_INSUFFICIENT_BUFFER;
             }
-
             *uj8++ = uc8[1];
             if (uc8[2])
             {
@@ -677,7 +676,6 @@ UTF_uj16_to_uj8(const UTF_UC16 *uj16, UTF_SIZE_T uj16size, UTF_UC8 *uj8, UTF_SIZ
                     *uj8 = 0;
                     return UTF_INSUFFICIENT_BUFFER;
                 }
-
                 *uj8++ = uc8[2];
                 if (uc8[3])
                 {
@@ -860,7 +858,6 @@ UTF_uj32_to_uj16(const UTF_UC32 *uj32, UTF_SIZE_T uj32size, UTF_UC16 *uj16, UTF_
             *uj16 = 0;
             return UTF_INSUFFICIENT_BUFFER;
         }
-
         *uj16++ = uc16[0];
         if (uc16[1])
         {
