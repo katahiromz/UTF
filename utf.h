@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  15  /* Version 15 */
+#define UTF_H_  17  /* Version 17 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -70,7 +70,6 @@ typedef uint8_t UTF_UC8;
     /* #define UTF_SIZE_T int */
     #define UTF_SIZE_T size_t
 #endif
-
 
 enum UTF_RET
 {
@@ -201,6 +200,74 @@ UTF_uj32_cmp(const UTF_UC32 *uj32a, const UTF_UC32 *uj32b)
 {
     while (*uj32a && *uj32b)
     {
+        if (*uj32a < *uj32b) return -1;
+        if (*uj32a > *uj32b) return 1;
+        ++uj32a;
+        ++uj32b;
+    }
+    if (*uj32a < *uj32b) return -1;
+    if (*uj32a > *uj32b) return 1;
+    return 0;
+}
+
+static __inline int
+UTF_uj8_cmpn(const UTF_UC8 *uj8a, const UTF_UC8 *uj8b, UTF_SIZE_T len)
+{
+    while (*uj8a && *uj8b)
+    {
+        if (len-- == 0)
+            break;
+        if (*uj8a < *uj8b) return -1;
+        if (*uj8a > *uj8b) return 1;
+        ++uj8a;
+        ++uj8b;
+    }
+    if (*uj8a < *uj8b) return -1;
+    if (*uj8a > *uj8b) return 1;
+    return 0;
+}
+
+static __inline int
+UTF_j8_cmpn(const UTF_C8 *j8a, const UTF_C8 *j8b, UTF_SIZE_T len)
+{
+    while (*j8a && *j8b)
+    {
+        if (len-- == 0)
+            break;
+        if (*j8a < *j8b) return -1;
+        if (*j8a > *j8b) return 1;
+        ++j8a;
+        ++j8b;
+    }
+    if (*j8a < *j8b) return -1;
+    if (*j8a > *j8b) return 1;
+    return 0;
+}
+
+static __inline int
+UTF_uj16_cmpn(const UTF_UC16 *uj16a, const UTF_UC16 *uj16b, UTF_SIZE_T len)
+{
+    while (*uj16a && *uj16b)
+    {
+        if (len-- == 0)
+            break;
+        if (*uj16a < *uj16b) return -1;
+        if (*uj16a > *uj16b) return 1;
+        ++uj16a;
+        ++uj16b;
+    }
+    if (*uj16a < *uj16b) return -1;
+    if (*uj16a > *uj16b) return 1;
+    return 0;
+}
+
+static __inline int
+UTF_uj32_cmpn(const UTF_UC32 *uj32a, const UTF_UC32 *uj32b, UTF_SIZE_T len)
+{
+    while (*uj32a && *uj32b)
+    {
+        if (len-- == 0)
+            break;
         if (*uj32a < *uj32b) return -1;
         if (*uj32a > *uj32b) return 1;
         ++uj32a;
