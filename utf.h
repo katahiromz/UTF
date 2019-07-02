@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  6   /* Version 6 */
+#define UTF_H_  7   /* Version 7 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -283,7 +283,7 @@ UTF_uj8_to_uj16(const UTF_UC8 *uj8, size_t uj8size, UTF_UC16 *uj16, size_t uj16s
     if (!uj16size && uj8size)
         return UTF_INSUFFICIENT_BUFFER;
 
-    *uj16end = 0;
+    memset(uj16, 0, uj16size * sizeof(*uj16));
     for (; uj8 != uj8end; ++uj8)
     {
         count = UTF_uc8_count(*uj8);
@@ -297,7 +297,7 @@ UTF_uj8_to_uj16(const UTF_UC8 *uj8, size_t uj8size, UTF_UC16 *uj16, size_t uj16s
                 return UTF_INSUFFICIENT_BUFFER;
             }
 
-            *uj16++ = uc16[0];
+            *uj16++ = UTF_DEFAULT_CHAR;
             continue;
         }
 
@@ -356,7 +356,7 @@ UTF_uj8_to_uj32(const UTF_UC8 *uj8, size_t uj8size, UTF_UC32 *uj32, size_t uj32s
     if (!uj32size && uj8size)
         return UTF_INSUFFICIENT_BUFFER;
 
-    *uj32end = 0;
+    memset(uj32, 0, uj32size * sizeof(*uj32));
     for (; uj8 != uj8end; ++uj8)
     {
         count = UTF_uc8_count(*uj8);
@@ -410,7 +410,7 @@ UTF_uj16_to_uj8(const UTF_UC16 *uj16, size_t uj16size, UTF_UC8 *uj8, size_t uj8s
     if (!uj8size && uj16size)
         return UTF_INSUFFICIENT_BUFFER;
 
-    *uj8end = 0;
+    memset(uj8, 0, uj8size * sizeof(*uj8));
     for (; uj16 != uj16end; ++uj16)
     {
         if (UTF_uc16_is_surrogate_high(*uj16))
@@ -491,7 +491,7 @@ UTF_uj16_to_uj32(const UTF_UC16 *uj16, size_t uj16size, UTF_UC32 *uj32, size_t u
     if (!uj32size && uj16size)
         return UTF_INSUFFICIENT_BUFFER;
 
-    *uj32end = 0;
+    memset(uj32, 0, uj32size * sizeof(*uj32));
     for (; uj16 != uj16end; ++uj16)
     {
         if (UTF_uc16_is_surrogate_high(*uj16))
@@ -537,7 +537,7 @@ UTF_uj32_to_uj8(const UTF_UC32 *uj32, size_t uj32size, UTF_UC8 *uj8, size_t uj8s
     if (!uj8size && uj32size)
         return UTF_INSUFFICIENT_BUFFER;
 
-    *uj8end = 0;
+    memset(uj8, 0, uj8size * sizeof(*uj8));
     for (; uj32 != uj32end; ++uj32)
     {
         if (!UTF_uc32_to_uc8(*uj32, uc8))
@@ -603,7 +603,7 @@ UTF_uj32_to_uj16(const UTF_UC32 *uj32, size_t uj32size, UTF_UC16 *uj16, size_t u
     if (!uj16size && uj32size)
         return UTF_INSUFFICIENT_BUFFER;
 
-    *uj16end = 0;
+    memset(uj16, 0, uj16size * sizeof(*uj16));
     for (; uj32 != uj32end; ++uj32)
     {
         if (!UTF_uc32_to_uc16(*uj32, uc16))
