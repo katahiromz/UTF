@@ -24,9 +24,7 @@ void u8_to_u_test(int line, const UTF_S8& str1, const UTF_US16& str2, bool ok)
     UTF_test(line, UTF_u8_to_u<UTF_DEFAULT_CHAR, UTF_TRUNCATABLE>(str1, tmp) == ok);
     UTF_test(line, tmp == str2);
     UTF_test(line, UTF_j8_to_uj16(str1.c_str(), str1.size(), buf, 256) == UTF_SUCCESS);
-#if defined(_WIN32) && defined(UTF_WIDE_IS_UTF16)
-    UTF_test(line, wcscmp(tmp.c_str(), buf) == 0);
-#endif
+    UTF_test(line, UTF_uj16_cmp(tmp.c_str(), buf) == 0);
 }
 
 void u8_to_U_test(int line, const UTF_S8& str1, const UTF_US32& str2, bool ok)
@@ -36,6 +34,7 @@ void u8_to_U_test(int line, const UTF_S8& str1, const UTF_US32& str2, bool ok)
     UTF_test(line, UTF_u8_to_U<UTF_DEFAULT_CHAR, UTF_TRUNCATABLE>(str1, tmp) == ok);
     UTF_test(line, tmp == str2);
     UTF_test(line, UTF_j8_to_uj32(str1.c_str(), str1.size(), buf, 256) == UTF_SUCCESS);
+    UTF_test(line, UTF_uj32_cmp(tmp.c_str(), buf) == 0);
 }
 
 void u_to_u8_test(int line, const UTF_US16& str1, const UTF_S8& str2, bool ok)
@@ -45,7 +44,7 @@ void u_to_u8_test(int line, const UTF_US16& str1, const UTF_S8& str2, bool ok)
     UTF_test(line, UTF_u_to_u8<UTF_DEFAULT_CHAR, UTF_TRUNCATABLE>(str1, tmp) == ok);
     UTF_test(line, tmp == reinterpret_cast<const UTF_US8&>(str2));
     UTF_test(line, UTF_uj16_to_uj8(str1.c_str(), str1.size(), buf, 256) == UTF_SUCCESS);
-    UTF_test(line, strcmp((const char *)tmp.c_str(), (char *)buf) == 0);
+    UTF_test(line, UTF_uj8_cmp(tmp.c_str(), buf) == 0);
 }
 
 void us16_to_us32_test(int line, const UTF_US16& str1, const UTF_US32& str2, bool ok)
@@ -55,6 +54,7 @@ void us16_to_us32_test(int line, const UTF_US16& str1, const UTF_US32& str2, boo
     UTF_test(line, UTF_u_to_U<UTF_DEFAULT_CHAR, UTF_TRUNCATABLE>(str1, tmp) == ok);
     UTF_test(line, tmp == str2);
     UTF_test(line, UTF_uj16_to_uj32(str1.c_str(), str1.size(), buf, 256) == UTF_SUCCESS);
+    UTF_test(line, UTF_uj32_cmp(tmp.c_str(), buf) == 0);
 }
 
 void U_to_u8_test(int line, const UTF_US32& str1, const UTF_S8& str2, bool ok)
@@ -64,7 +64,7 @@ void U_to_u8_test(int line, const UTF_US32& str1, const UTF_S8& str2, bool ok)
     UTF_test(line, UTF_U_to_u8<UTF_DEFAULT_CHAR, UTF_TRUNCATABLE>(str1, tmp) == ok);
     UTF_test(line, tmp == reinterpret_cast<const UTF_US8&>(str2));
     UTF_test(line, UTF_uj32_to_uj8(str1.c_str(), str1.size(), buf, 256) == UTF_SUCCESS);
-    UTF_test(line, strcmp((const char *)tmp.c_str(), (char *)buf) == 0);
+    UTF_test(line, UTF_uj8_cmp(tmp.c_str(), buf) == 0);
 }
 
 void us32_to_us16_test(int line, const UTF_US32& str1, const UTF_US16& str2, bool ok)
@@ -74,9 +74,7 @@ void us32_to_us16_test(int line, const UTF_US32& str1, const UTF_US16& str2, boo
     UTF_test(line, UTF_U_to_u<UTF_DEFAULT_CHAR, UTF_TRUNCATABLE>(str1, tmp) == ok);
     UTF_test(line, tmp == str2);
     UTF_test(line, UTF_uj32_to_uj16(str1.c_str(), str1.size(), buf, 256) == UTF_SUCCESS);
-#if defined(_WIN32) && defined(UTF_WIDE_IS_UTF16)
-    UTF_test(line, wcscmp(tmp.c_str(), buf) == 0);
-#endif
+    UTF_test(line, UTF_uj16_cmp(tmp.c_str(), buf) == 0);
 }
 
 int main(void)

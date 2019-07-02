@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  8   /* Version 8 */
+#define UTF_H_  9   /* Version 9 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -104,6 +104,110 @@ static __inline bool
 UTF_uc16_is_surrogate_low(UTF_UC16 uc16)
 {
     return 0xDC00 <= uc16 && uc16 < 0xE000;
+}
+
+static __inline size_t
+UTF_uj8_len(const UTF_UC8 *uj8)
+{
+    size_t len;
+    for (len = 0; *uj8; ++len, ++uj8)
+    {
+        ;
+    }
+    return len;
+}
+
+static __inline size_t
+UTF_j8_len(const UTF_C8 *j8)
+{
+    size_t len;
+    for (len = 0; *j8; ++len, ++j8)
+    {
+        ;
+    }
+    return len;
+}
+
+static __inline size_t
+UTF_uj16_len(const UTF_UC16 *uj16)
+{
+    size_t len;
+    for (len = 0; *uj16; ++len, ++uj16)
+    {
+        ;
+    }
+    return len;
+}
+
+static __inline size_t
+UTF_uj32_len(const UTF_UC32 *uj32)
+{
+    size_t len;
+    for (len = 0; *uj32; ++len, ++uj32)
+    {
+        ;
+    }
+    return len;
+}
+
+static __inline int
+UTF_uj8_cmp(const UTF_UC8 *uj8a, const UTF_UC8 *uj8b)
+{
+    while (*uj8a && *uj8b)
+    {
+        if (*uj8a < *uj8b) return -1;
+        if (*uj8a > *uj8b) return 1;
+        ++uj8a;
+        ++uj8b;
+    }
+    if (*uj8a < *uj8b) return -1;
+    if (*uj8a > *uj8b) return 1;
+    return 0;
+}
+
+static __inline int
+UTF_j8_cmp(const UTF_C8 *j8a, const UTF_C8 *j8b)
+{
+    while (*j8a && *j8b)
+    {
+        if (*j8a < *j8b) return -1;
+        if (*j8a > *j8b) return 1;
+        ++j8a;
+        ++j8b;
+    }
+    if (*j8a < *j8b) return -1;
+    if (*j8a > *j8b) return 1;
+    return 0;
+}
+
+static __inline bool
+UTF_uj16_cmp(const UTF_UC16 *uj16a, const UTF_UC16 *uj16b)
+{
+    while (*uj16a && *uj16b)
+    {
+        if (*uj16a < *uj16b) return -1;
+        if (*uj16a > *uj16b) return 1;
+        ++uj16a;
+        ++uj16b;
+    }
+    if (*uj16a < *uj16b) return -1;
+    if (*uj16a > *uj16b) return 1;
+    return 0;
+}
+
+static __inline bool
+UTF_uj32_cmp(const UTF_UC32 *uj32a, const UTF_UC32 *uj32b)
+{
+    while (*uj32a && *uj32b)
+    {
+        if (*uj32a < *uj32b) return -1;
+        if (*uj32a > *uj32b) return 1;
+        ++uj32a;
+        ++uj32b;
+    }
+    if (*uj32a < *uj32b) return -1;
+    if (*uj32a > *uj32b) return 1;
+    return 0;
 }
 
 static __inline bool
