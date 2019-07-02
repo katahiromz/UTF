@@ -21,7 +21,7 @@ void u8_to_u_test(int line, const UTF_S8& str1, const UTF_US16& str2, bool ok)
 {
     UTF_US16 tmp;
     UTF_UC16 buf[256];
-    UTF_test(line, UTF_u8_to_u(str1, tmp) == ok);
+    UTF_test(line, UTF_u8_to_u<UTF_DEFAULT_CHAR, UTF_TRUNCATABLE>(str1, tmp) == ok);
     UTF_test(line, tmp == str2);
     UTF_test(line, UTF_j8_to_uj16(str1.c_str(), str1.size(), buf, 256) == UTF_SUCCESS);
 }
@@ -30,7 +30,7 @@ void u8_to_U_test(int line, const UTF_S8& str1, const UTF_US32& str2, bool ok)
 {
     UTF_US32 tmp;
     UTF_UC32 buf[256];
-    UTF_test(line, UTF_u8_to_U(str1, tmp) == ok);
+    UTF_test(line, UTF_u8_to_U<UTF_DEFAULT_CHAR, UTF_TRUNCATABLE>(str1, tmp) == ok);
     UTF_test(line, tmp == str2);
     UTF_test(line, UTF_j8_to_uj32(str1.c_str(), str1.size(), buf, 256) == UTF_SUCCESS);
 }
@@ -39,7 +39,7 @@ void u_to_u8_test(int line, const UTF_US16& str1, const UTF_S8& str2, bool ok)
 {
     UTF_US8 tmp;
     UTF_UC8 buf[256];
-    UTF_test(line, UTF_u_to_u8(str1, tmp) == ok);
+    UTF_test(line, UTF_u_to_u8<UTF_DEFAULT_CHAR, UTF_TRUNCATABLE>(str1, tmp) == ok);
     UTF_test(line, tmp == reinterpret_cast<const UTF_US8&>(str2));
     UTF_test(line, UTF_uj16_to_uj8(str1.c_str(), str1.size(), buf, 256) == UTF_SUCCESS);
 }
@@ -48,7 +48,7 @@ void us16_to_us32_test(int line, const UTF_US16& str1, const UTF_US32& str2, boo
 {
     UTF_US32 tmp;
     UTF_UC32 buf[256];
-    UTF_test(line, UTF_u_to_U(str1, tmp) == ok);
+    UTF_test(line, UTF_u_to_U<UTF_DEFAULT_CHAR, UTF_TRUNCATABLE>(str1, tmp) == ok);
     UTF_test(line, tmp == str2);
     UTF_test(line, UTF_uj16_to_uj32(str1.c_str(), str1.size(), buf, 256) == UTF_SUCCESS);
 }
@@ -57,7 +57,7 @@ void U_to_u8_test(int line, const UTF_US32& str1, const UTF_S8& str2, bool ok)
 {
     UTF_US8 tmp;
     UTF_UC8 buf[256];
-    UTF_test(line, UTF_U_to_u8(str1, tmp) == ok);
+    UTF_test(line, UTF_U_to_u8<UTF_DEFAULT_CHAR, UTF_TRUNCATABLE>(str1, tmp) == ok);
     UTF_test(line, tmp == reinterpret_cast<const UTF_US8&>(str2));
     UTF_test(line, UTF_uj32_to_uj8(str1.c_str(), str1.size(), buf, 256) == UTF_SUCCESS);
 }
@@ -66,7 +66,7 @@ void us32_to_us16_test(int line, const UTF_US32& str1, const UTF_US16& str2, boo
 {
     UTF_US16 tmp;
     UTF_UC16 buf[256];
-    UTF_test(line, UTF_U_to_u(str1, tmp) == ok);
+    UTF_test(line, UTF_U_to_u<UTF_DEFAULT_CHAR, UTF_TRUNCATABLE>(str1, tmp) == ok);
     UTF_test(line, tmp == str2);
     UTF_test(line, UTF_uj32_to_uj16(str1.c_str(), str1.size(), buf, 256) == UTF_SUCCESS);
 }
