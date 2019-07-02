@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  14  /* Version 14 */
+#define UTF_H_  15  /* Version 15 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -66,6 +66,12 @@ typedef uint8_t UTF_UC8;
     #endif
 #endif
 
+#ifndef UTF_SIZE_T
+    /* #define UTF_SIZE_T int */
+    #define UTF_SIZE_T size_t
+#endif
+
+
 enum UTF_RET
 {
     UTF_INVALID = 0,
@@ -101,10 +107,10 @@ UTF_uc16_is_surrogate_low(UTF_UC16 uc16)
     return 0xDC00 <= uc16 && uc16 < 0xE000;
 }
 
-static __inline size_t
+static __inline UTF_SIZE_T
 UTF_uj8_len(const UTF_UC8 *uj8)
 {
-    size_t len;
+    UTF_SIZE_T len;
     for (len = 0; *uj8; ++len, ++uj8)
     {
         ;
@@ -112,10 +118,10 @@ UTF_uj8_len(const UTF_UC8 *uj8)
     return len;
 }
 
-static __inline size_t
+static __inline UTF_SIZE_T
 UTF_j8_len(const UTF_C8 *j8)
 {
-    size_t len;
+    UTF_SIZE_T len;
     for (len = 0; *j8; ++len, ++j8)
     {
         ;
@@ -123,10 +129,10 @@ UTF_j8_len(const UTF_C8 *j8)
     return len;
 }
 
-static __inline size_t
+static __inline UTF_SIZE_T
 UTF_uj16_len(const UTF_UC16 *uj16)
 {
-    size_t len;
+    UTF_SIZE_T len;
     for (len = 0; *uj16; ++len, ++uj16)
     {
         ;
@@ -134,10 +140,10 @@ UTF_uj16_len(const UTF_UC16 *uj16)
     return len;
 }
 
-static __inline size_t
+static __inline UTF_SIZE_T
 UTF_uj32_len(const UTF_UC32 *uj32)
 {
-    size_t len;
+    UTF_SIZE_T len;
     for (len = 0; *uj32; ++len, ++uj32)
     {
         ;
@@ -371,7 +377,7 @@ UTF_uc16_to_uc8(const UTF_UC16 uc16[2], UTF_UC8 uc8[4])
 }
 
 static __inline UTF_RET
-UTF_uj8_to_uj16(const UTF_UC8 *uj8, size_t uj8size, UTF_UC16 *uj16, size_t uj16size)
+UTF_uj8_to_uj16(const UTF_UC8 *uj8, UTF_SIZE_T uj8size, UTF_UC16 *uj16, UTF_SIZE_T uj16size)
 {
     UTF_UC8 uc8[4];
     UTF_UC16 uc16[2];
@@ -456,13 +462,13 @@ UTF_uj8_to_uj16(const UTF_UC8 *uj8, size_t uj8size, UTF_UC16 *uj16, size_t uj16s
 }
 
 static __inline UTF_RET
-UTF_j8_to_uj16(const UTF_C8 *j8, size_t j8size, UTF_UC16 *uj16, size_t uj16size)
+UTF_j8_to_uj16(const UTF_C8 *j8, UTF_SIZE_T j8size, UTF_UC16 *uj16, UTF_SIZE_T uj16size)
 {
     return UTF_uj8_to_uj16(UTF_REINTERPRET_CAST(const UTF_UC8 *, j8), j8size, uj16, uj16size);
 }
 
 static __inline UTF_RET
-UTF_uj8_to_uj32(const UTF_UC8 *uj8, size_t uj8size, UTF_UC32 *uj32, size_t uj32size)
+UTF_uj8_to_uj32(const UTF_UC8 *uj8, UTF_SIZE_T uj8size, UTF_UC32 *uj32, UTF_SIZE_T uj32size)
 {
     UTF_UC8 uc8[4];
     UTF_UC32 uc32;
@@ -529,13 +535,13 @@ UTF_uj8_to_uj32(const UTF_UC8 *uj8, size_t uj8size, UTF_UC32 *uj32, size_t uj32s
 }
 
 static __inline UTF_RET
-UTF_j8_to_uj32(const UTF_C8 *j8, size_t j8size, UTF_UC32 *uj32, size_t uj32size)
+UTF_j8_to_uj32(const UTF_C8 *j8, UTF_SIZE_T j8size, UTF_UC32 *uj32, UTF_SIZE_T uj32size)
 {
     return UTF_uj8_to_uj32(UTF_REINTERPRET_CAST(const UTF_UC8 *, j8), j8size, uj32, uj32size);
 }
 
 static __inline UTF_RET
-UTF_uj16_to_uj8(const UTF_UC16 *uj16, size_t uj16size, UTF_UC8 *uj8, size_t uj8size)
+UTF_uj16_to_uj8(const UTF_UC16 *uj16, UTF_SIZE_T uj16size, UTF_UC8 *uj8, UTF_SIZE_T uj8size)
 {
     UTF_UC16 uc16[2];
     UTF_UC8 uc8[4];
@@ -627,13 +633,13 @@ UTF_uj16_to_uj8(const UTF_UC16 *uj16, size_t uj16size, UTF_UC8 *uj8, size_t uj8s
 }
 
 static __inline UTF_RET
-UTF_uj16_to_j8(const UTF_UC16 *uj16, size_t uj16size, UTF_C8 *j8, size_t c8size)
+UTF_uj16_to_j8(const UTF_UC16 *uj16, UTF_SIZE_T uj16size, UTF_C8 *j8, UTF_SIZE_T c8size)
 {
     return UTF_uj16_to_uj8(uj16, uj16size, UTF_REINTERPRET_CAST(UTF_UC8 *, j8), c8size);
 }
 
 static __inline UTF_RET
-UTF_uj16_to_uj32(const UTF_UC16 *uj16, size_t uj16size, UTF_UC32 *uj32, size_t uj32size)
+UTF_uj16_to_uj32(const UTF_UC16 *uj16, UTF_SIZE_T uj16size, UTF_UC32 *uj32, UTF_SIZE_T uj32size)
 {
     UTF_UC16 uc16[2];
     UTF_UC32 uc32;
@@ -694,7 +700,7 @@ UTF_uj16_to_uj32(const UTF_UC16 *uj16, size_t uj16size, UTF_UC32 *uj32, size_t u
 }
 
 static __inline UTF_RET
-UTF_uj32_to_uj8(const UTF_UC32 *uj32, size_t uj32size, UTF_UC8 *uj8, size_t uj8size)
+UTF_uj32_to_uj8(const UTF_UC32 *uj32, UTF_SIZE_T uj32size, UTF_UC8 *uj8, UTF_SIZE_T uj8size)
 {
     UTF_UC8 uc8[4];
     const UTF_UC32 *uj32end = uj32 + uj32size;
@@ -758,13 +764,13 @@ UTF_uj32_to_uj8(const UTF_UC32 *uj32, size_t uj32size, UTF_UC8 *uj8, size_t uj8s
 }
 
 static __inline UTF_RET
-UTF_uj32_to_j8(const UTF_UC32 *uj32, size_t uj32size, UTF_C8 *j8, size_t j8size)
+UTF_uj32_to_j8(const UTF_UC32 *uj32, UTF_SIZE_T uj32size, UTF_C8 *j8, UTF_SIZE_T j8size)
 {
     return UTF_uj32_to_uj8(uj32, uj32size, UTF_REINTERPRET_CAST(UTF_UC8 *, j8), j8size);
 }
 
 static __inline UTF_RET
-UTF_uj32_to_uj16(const UTF_UC32 *uj32, size_t uj32size, UTF_UC16 *uj16, size_t uj16size)
+UTF_uj32_to_uj16(const UTF_UC32 *uj32, UTF_SIZE_T uj32size, UTF_UC16 *uj16, UTF_SIZE_T uj16size)
 {
     UTF_UC16 uc16[2];
     const UTF_UC32 *uj32end = uj32 + uj32size;
