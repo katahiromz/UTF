@@ -109,7 +109,7 @@ void UTF_fgets_test(const char *fname)
     UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == buf);
     UTF_test(__LINE__, UTF_uj16_cmp(buf, UTF_u("\u6F22\u5B57\n")) == 0);
     UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
-    UTF_test(__LINE__, UTF_j8_cmp(buf2, UTF_u8("\xE6\xBC\xA2\xE5\xAD\x97\n")) == 0);
+    UTF_test(__LINE__, UTF_j8_cmp(buf2, "\xE6\xBC\xA2\xE5\xAD\x97\n") == 0);
 
     UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == NULL);
 
