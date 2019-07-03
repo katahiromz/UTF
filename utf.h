@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  22  /* Version 22 */
+#define UTF_H_  23  /* Version 23 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -33,13 +33,6 @@
 typedef char UTF_C8;
 typedef uint8_t UTF_UC8;
 #if defined(__cplusplus) && __cplusplus >= 201103L  /* C++11 */
-    #ifdef UTF_WIDE_IS_UTF16
-        typedef wchar_t UTF_UC16;
-    #else
-        typedef char16_t UTF_UC16;
-    #endif
-    typedef char32_t UTF_UC32;
-#elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L  /* C11 */
     #ifdef UTF_WIDE_IS_UTF16
         typedef wchar_t UTF_UC16;
     #else
@@ -86,12 +79,12 @@ typedef uint8_t UTF_UC8;
     #define UTF_SIZE_T size_t
 #endif
 
-enum UTF_RET
+typedef enum UTF_RET
 {
     UTF_INVALID = 0,
     UTF_SUCCESS = 1,
     UTF_INSUFFICIENT_BUFFER = 2
-};
+} UTF_RET;
 
 static __inline int
 UTF_uc8_count(UTF_UC8 uc8)
