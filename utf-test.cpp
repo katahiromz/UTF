@@ -92,22 +92,22 @@ void UTF_fgets_test(const char *fname)
     }
 
     UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == buf);
-    UTF_test(__LINE__, UTF_uj16_cmp(buf, u"TEST\n") == 0);
+    UTF_test(__LINE__, UTF_uj16_cmp(buf, UTF_u("TEST\n")) == 0);
     UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
     UTF_test(__LINE__, UTF_j8_cmp(buf2, UTF_u8("TEST\n")) == 0);
 
     UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == buf);
-    UTF_test(__LINE__, UTF_uj16_cmp(buf, u"ABC123\n") == 0);
+    UTF_test(__LINE__, UTF_uj16_cmp(buf, UTF_u("ABC123\n")) == 0);
     UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
     UTF_test(__LINE__, UTF_j8_cmp(buf2, UTF_u8("ABC123\n")) == 0);
 
     UTF_test(__LINE__, UTF16_fgets(buf, 64, fp) == buf);
-    UTF_test(__LINE__, UTF_uj16_cmp(buf, u"\u3042\u3044\u3046\u3048\u304A\n") == 0);
+    UTF_test(__LINE__, UTF_uj16_cmp(buf, UTF_u("\u3042\u3044\u3046\u3048\u304A\n")) == 0);
     UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
     UTF_test(__LINE__, UTF_j8_cmp(buf2, "\xE3\x81\x82\xE3\x81\x84\xE3\x81\x86\xE3\x81\x88\xE3\x81\x8A\n") == 0);
 
     UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == buf);
-    UTF_test(__LINE__, UTF_uj16_cmp(buf, u"\u6F22\u5B57\n") == 0);
+    UTF_test(__LINE__, UTF_uj16_cmp(buf, UTF_u("\u6F22\u5B57\n")) == 0);
     UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
     UTF_test(__LINE__, UTF_j8_cmp(buf2, "\xE6\xBC\xA2\xE5\xAD\x97\n") == 0);
 
