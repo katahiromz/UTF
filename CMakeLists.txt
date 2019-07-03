@@ -17,10 +17,12 @@ if (WIN32)
         # using Clang
         set(CMAKE_C_FLAGS "-static -s")
         set(CMAKE_CXX_FLAGS "-static -s")
+        set(CMAKE_CXX_STANDARD 11)
     elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         # using GCC
         set(CMAKE_C_FLAGS "-static -static-libgcc -static-libstdc++ -s")
         set(CMAKE_CXX_FLAGS "-static -static-libgcc -static-libstdc++ -s")
+        set(CMAKE_CXX_STANDARD 11)
     elseif (MSVC)
         # replace "/MD" with "/MT" (building without runtime DLLs)
         set(CompilerFlags
