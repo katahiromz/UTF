@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  20  /* Version 20 */
+#define UTF_H_  21  /* Version 21 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -71,6 +71,10 @@ typedef uint8_t UTF_UC8;
 
 #ifndef UTF_u8
     #define UTF_u8(str) u8##str
+#endif
+
+#ifndef UTF_L
+    #define UTF_L(str) L##str
 #endif
 
 #ifndef UTF_U

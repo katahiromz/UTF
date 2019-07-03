@@ -120,58 +120,58 @@ int main(int argc, char **argv)
     g_failures = 0;
 
     u8_to_u_test(__LINE__, "", UTF_u(""), true);
-    u8_to_U_test(__LINE__, "", U"", true);
+    u8_to_U_test(__LINE__, "", UTF_U(""), true);
     u_to_u8_test(__LINE__, UTF_u(""), "", true);
-    U_to_u8_test(__LINE__, U"", "", true);
+    U_to_u8_test(__LINE__, UTF_U(""), "", true);
 
     u8_to_u_test(__LINE__, UTF_S8("\0", 1), UTF_US16(UTF_u("\0"), 1), true);
-    u8_to_U_test(__LINE__, UTF_S8("\0", 1), UTF_US32(U"\U00000000", 1), true);
+    u8_to_U_test(__LINE__, UTF_S8("\0", 1), UTF_US32(UTF_U("\U00000000"), 1), true);
     u_to_u8_test(__LINE__, UTF_US16(UTF_u("\u0000"), 1), UTF_S8("\0", 1), true);
-    U_to_u8_test(__LINE__, UTF_US32(U"\U00000000", 1), UTF_S8("\0", 1), true);
+    U_to_u8_test(__LINE__, UTF_US32(UTF_U("\U00000000"), 1), UTF_S8("\0", 1), true);
 
     u8_to_u_test(__LINE__, UTF_S8("M\0M", 3), UTF_US16(UTF_u("M\0M"), 3), true);
-    u8_to_U_test(__LINE__, UTF_S8("M\0M", 3), UTF_US32(U"M\U00000000M", 3), true);
+    u8_to_U_test(__LINE__, UTF_S8("M\0M", 3), UTF_US32(UTF_U("M\U00000000M"), 3), true);
     u_to_u8_test(__LINE__, UTF_US16(UTF_u("M\u0000M"), 3), UTF_S8("M\0M", 3), true);
-    U_to_u8_test(__LINE__, UTF_US32(U"M\U00000000M", 3), UTF_S8("M\0M", 3), true);
+    U_to_u8_test(__LINE__, UTF_US32(UTF_U("M\U00000000M"), 3), UTF_S8("M\0M", 3), true);
 
     u8_to_u_test(__LINE__, "TEST", UTF_u("TEST"), true);
-    u8_to_U_test(__LINE__, "TEST", U"TEST", true);
+    u8_to_U_test(__LINE__, "TEST", UTF_U("TEST"), true);
     u_to_u8_test(__LINE__, UTF_u("TEST"), "TEST", true);
-    U_to_u8_test(__LINE__, U"TEST", "TEST", true);
+    U_to_u8_test(__LINE__, UTF_U("TEST"), "TEST", true);
 
-    u8_to_U_test(__LINE__, u8"z\u00df\u6c34\U0001d10b", U"\u007a\u00df\u6c34\U0001d10b", true);
-    u8_to_u_test(__LINE__, u8"z\u00df\u6c34\U0001d10b", UTF_u("\u007a\u00df\u6c34\U0001d10b"), true);
-    u_to_u8_test(__LINE__, UTF_u("z\u00df\u6c34\U0001d10b"), u8"\u007a\u00df\u6c34\U0001d10b", true);
-    U_to_u8_test(__LINE__, U"\u007a\u00df\u6c34\U0001d10b", u8"z\u00df\u6c34\U0001d10b", true);
+    u8_to_U_test(__LINE__, UTF_u8("z\u00df\u6c34\U0001d10b"), UTF_U("\u007a\u00df\u6c34\U0001d10b"), true);
+    u8_to_u_test(__LINE__, UTF_u8("z\u00df\u6c34\U0001d10b"), UTF_u("\u007a\u00df\u6c34\U0001d10b"), true);
+    u_to_u8_test(__LINE__, UTF_u("z\u00df\u6c34\U0001d10b"), UTF_u8("\u007a\u00df\u6c34\U0001d10b"), true);
+    U_to_u8_test(__LINE__, UTF_U("\u007a\u00df\u6c34\U0001d10b"), UTF_u8("z\u00df\u6c34\U0001d10b"), true);
 
-    u8_to_u_test(__LINE__, u8"私はガラスを食べられます。それは私を傷つけません。",
+    u8_to_u_test(__LINE__, UTF_u8("私はガラスを食べられます。それは私を傷つけません。"),
                  UTF_u("私はガラスを食べられます。それは私を傷つけません。"), true);
-    u8_to_U_test(__LINE__, u8"私はガラスを食べられます。それは私を傷つけません。",
-                 U"私はガラスを食べられます。それは私を傷つけません。", true);
+    u8_to_U_test(__LINE__, UTF_u8("私はガラスを食べられます。それは私を傷つけません。"),
+                 UTF_U("私はガラスを食べられます。それは私を傷つけません。"), true);
     u_to_u8_test(__LINE__, UTF_u("私はガラスを食べられます。それは私を傷つけません。"),
-                 u8"私はガラスを食べられます。それは私を傷つけません。", true);
-    U_to_u8_test(__LINE__, U"私はガラスを食べられます。それは私を傷つけません。",
-                 u8"私はガラスを食べられます。それは私を傷つけません。", true);
+                 UTF_u8("私はガラスを食べられます。それは私を傷つけません。"), true);
+    U_to_u8_test(__LINE__, UTF_U("私はガラスを食べられます。それは私を傷つけません。"),
+                 UTF_u8("私はガラスを食べられます。それは私を傷つけません。"), true);
 
-    u8_to_u_test(__LINE__, u8"ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ", UTF_u("ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ"), true);
-    u_to_u8_test(__LINE__, UTF_u("ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ"), u8"ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ", true);
+    u8_to_u_test(__LINE__, UTF_u8("ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ"), UTF_u("ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ"), true);
+    u_to_u8_test(__LINE__, UTF_u("ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ"), UTF_u8("ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ"), true);
 
 #ifdef UTF_WIDE_IS_UTF16
     puts("UTF_WIDE_IS_UTF16");
-    u8_to_u_test(__LINE__, u8"ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ", L"ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ", true);
-    u_to_u8_test(__LINE__, L"ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ", u8"ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ", true);
+    u8_to_u_test(__LINE__, UTF_u8("ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ"), UTF_L("ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ"), true);
+    u_to_u8_test(__LINE__, UTF_L("ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ"), UTF_u8("ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ"), true);
 #endif
 
-    u8_to_u_test(__LINE__, u8"\xA0", UTF_u("?"), true); //
-    u8_to_u_test(__LINE__, u8"\xC3\x28", UTF_u("?"), true);
-    u8_to_u_test(__LINE__, u8"\xE0\x80\x80", UTF_u("?"), true);
-    u8_to_u_test(__LINE__, u8"\xE2\x28\xA1", UTF_u("?"), true);
-    u8_to_u_test(__LINE__, u8"\xE2\x82\x28", UTF_u("?"), true);
-    u8_to_u_test(__LINE__, u8"\xF0\x80\x80\x80", UTF_u("?"), true);
-    u8_to_u_test(__LINE__, u8"\xF4\xBF\xBF\xBF", UTF_u("?"), true);
-    u8_to_u_test(__LINE__, u8"\xF0\x28\x8C\xBC", UTF_u("?"), true);
-    u8_to_u_test(__LINE__, u8"\xF0\x90\x28\xBC", UTF_u("?"), true);
-    u8_to_u_test(__LINE__, u8"\xF0\x28\x8C\x28", UTF_u("?"), true);
+    u8_to_u_test(__LINE__, UTF_u8("\xA0"), UTF_u("?"), true); //
+    u8_to_u_test(__LINE__, UTF_u8("\xC3\x28"), UTF_u("?"), true);
+    u8_to_u_test(__LINE__, UTF_u8("\xE0\x80\x80"), UTF_u("?"), true);
+    u8_to_u_test(__LINE__, UTF_u8("\xE2\x28\xA1"), UTF_u("?"), true);
+    u8_to_u_test(__LINE__, UTF_u8("\xE2\x82\x28"), UTF_u("?"), true);
+    u8_to_u_test(__LINE__, UTF_u8("\xF0\x80\x80\x80"), UTF_u("?"), true);
+    u8_to_u_test(__LINE__, UTF_u8("\xF4\xBF\xBF\xBF"), UTF_u("?"), true);
+    u8_to_u_test(__LINE__, UTF_u8("\xF0\x28\x8C\xBC"), UTF_u("?"), true);
+    u8_to_u_test(__LINE__, UTF_u8("\xF0\x90\x28\xBC"), UTF_u("?"), true);
+    u8_to_u_test(__LINE__, UTF_u8("\xF0\x28\x8C\x28"), UTF_u("?"), true);
 
     if (argc >= 2)
         UTF_fgets_test(argv[1]);
