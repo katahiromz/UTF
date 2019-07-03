@@ -125,15 +125,15 @@ int main(int argc, char **argv)
     u_to_u8_test(__LINE__, UTF_u(""), "", true);
     U_to_u8_test(__LINE__, UTF_U(""), "", true);
 
-    u8_to_u_test(__LINE__, UTF_S8("\0", 1), UTF_US16(UTF_u("\0"), 1), true);
-    u8_to_U_test(__LINE__, UTF_S8("\0", 1), UTF_US32(UTF_U("\U00000000"), 1), true);
-    u_to_u8_test(__LINE__, UTF_US16(UTF_u("\u0000"), 1), UTF_S8("\0", 1), true);
-    U_to_u8_test(__LINE__, UTF_US32(UTF_U("\U00000000"), 1), UTF_S8("\0", 1), true);
+    u8_to_u_test(__LINE__, UTF_S8(1, 0), UTF_US16(1, 0), true);
+    u8_to_U_test(__LINE__, UTF_S8(1, 0), UTF_US32(1, 0), true);
+    u_to_u8_test(__LINE__, UTF_US16(1, 0), UTF_S8(1, 0), true);
+    U_to_u8_test(__LINE__, UTF_US32(1, 0), UTF_S8(1, 0), true);
 
     u8_to_u_test(__LINE__, UTF_S8("M\0M", 3), UTF_US16(UTF_u("M\0M"), 3), true);
-    u8_to_U_test(__LINE__, UTF_S8("M\0M", 3), UTF_US32(UTF_U("M\U00000000M"), 3), true);
-    u_to_u8_test(__LINE__, UTF_US16(UTF_u("M\u0000M"), 3), UTF_S8("M\0M", 3), true);
-    U_to_u8_test(__LINE__, UTF_US32(UTF_U("M\U00000000M"), 3), UTF_S8("M\0M", 3), true);
+    u8_to_U_test(__LINE__, UTF_S8("M\0M", 3), UTF_US32(UTF_U("M\0M"), 3), true);
+    u_to_u8_test(__LINE__, UTF_US16(UTF_u("M\0M"), 3), UTF_S8("M\0M", 3), true);
+    U_to_u8_test(__LINE__, UTF_US32(UTF_U("M\0M"), 3), UTF_S8("M\0M", 3), true);
 
     u8_to_u_test(__LINE__, "TEST", UTF_u("TEST"), true);
     u8_to_U_test(__LINE__, "TEST", UTF_U("TEST"), true);
