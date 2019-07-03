@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  21  /* Version 21 */
+#define UTF_H_  22  /* Version 22 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -892,7 +892,7 @@ UTF8_fgets(UTF_UC8 *str, int count, FILE *fp)
     if (count <= 0 || feof(fp))
         return NULL;
 
-    cw = fread(str, sizeof(UTF_UC8), size_t(count), fp);
+    cw = fread(str, sizeof(UTF_UC8), UTF_STATIC_CAST(size_t, count), fp);
     if (!cw)
         return NULL;
 
@@ -936,7 +936,7 @@ UTF16_fgets(UTF_UC16 *str, int count, FILE *fp)
     if (count <= 0 || feof(fp))
         return NULL;
 
-    cw = fread(str, sizeof(UTF_UC16), size_t(count), fp);
+    cw = fread(str, sizeof(UTF_UC16), UTF_STATIC_CAST(size_t, count), fp);
     if (!cw)
         return NULL;
 
@@ -980,7 +980,7 @@ UTF32_fgets(UTF_UC32 *str, int count, FILE *fp)
     if (count <= 0 || feof(fp))
         return NULL;
 
-    cw = fread(str, sizeof(UTF_UC32), size_t(count), fp);
+    cw = fread(str, sizeof(UTF_UC32), UTF_STATIC_CAST(size_t, count), fp);
     if (!cw)
         return NULL;
 
