@@ -49,6 +49,6 @@ endif()
 add_executable(utf-test utf-test.cpp)
 
 # test
-add_test(NAME utf-test COMMAND $<TARGET_FILE:utf-test>)
+add_test(NAME utf-test COMMAND $<TARGET_FILE:utf-test> ${CMAKE_CURRENT_SOURCE_DIR}/TESTFILE.dat)
 
 ##############################################################################

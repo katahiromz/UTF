@@ -18,10 +18,12 @@
 #endif
 
 #ifdef __cplusplus
+    #include <cstdio>
     #include <cstring>
     #define UTF_STATIC_CAST(type, value) static_cast<type>(value)
     #define UTF_REINTERPRET_CAST(type, value) reinterpret_cast<type>(value)
 #else
+    #include <stdio.h>
     #include <string.h>
     #define UTF_STATIC_CAST(type, value) ((type)(value))
     #define UTF_REINTERPRET_CAST(type, value) ((type)(value))
@@ -55,6 +57,7 @@ typedef uint8_t UTF_UC8;
 
 #ifndef UTF_DEFAULT_CHAR
     #define UTF_DEFAULT_CHAR '?'
+    /* #define UTF_DEFAULT_CHAR ' ' */
     /* #define UTF_DEFAULT_CHAR 0 */
 #endif
 
@@ -879,6 +882,51 @@ UTF_uj32_to_uj16(const UTF_UC32 *uj32, UTF_SIZE_T uj32size, UTF_UC16 *uj16, UTF_
     }
     *uj16 = 0;
     return UTF_SUCCESS;
+}
+
+template <typename UT>
+static __inline UT *
+UTF_fgets(UT *str, int count, FILE *fp)
+{
+    size_t i, cw;
+    long diff;
+    if (count <= 0 || feof(fp))
+        return NULL;
+
+    cw = fread(str, sizeof(UT), count, fp);
+    if (!cw)
+        return NULL;
+
+    for (i = 0; i < cw; ++i)
+    {
+        if (str[i] == '\n')
+        {
+            if (i && str[i - 1] == '\r')
+            {
+                str[i - 1] = '\n';
+                str[i] = 0;
+                ++i;
+            }
+            else
+            {
+                if (i + 1 != cw)
+                {
+                    ++i;
+                }
+                str[i] = 0;
+            }
+            break;
+        }
+    }
+
+    if (i != cw)
+    {
+        diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
+        diff *= sizeof(UT);
+        if (fseek(fp, diff, SEEK_CUR) != 0)
+            return NULL;
+    }
+    return str;
 }
 
 #endif  /* ndef UTF_H_ */

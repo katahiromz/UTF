@@ -353,6 +353,37 @@ UTF_U_to_U(const UTF_US32& src, UTF_US32& dest)
     return true;
 }
 
+template <typename T>
+inline int UTF_cmp(const T *a, const T *b)
+{
+    while (*a && *b)
+    {
+        if (*a < *b) return -1;
+        if (*a > *b) return 1;
+        ++a;
+        ++b;
+    }
+    if (*a < *b) return -1;
+    if (*a > *b) return 1;
+    return 0;
+}
+
+template <typename T>
+inline int UTF_cmp(const T *a, const T *b, size_t len)
+{
+    while (*a && *b)
+    {
+        if (len-- == 0) return 0;
+        if (*a < *b) return -1;
+        if (*a > *b) return 1;
+        ++a;
+        ++b;
+    }
+    if (*a < *b) return -1;
+    if (*a > *b) return 1;
+    return 0;
+}
+
 #ifdef UTF_WIDE_IS_UTF16
     #define UTF_L_to_U UTF_u_to_U
     #define UTF_L_to_u UTF_u_to_u

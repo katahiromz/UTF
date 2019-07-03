@@ -77,7 +77,45 @@ void us32_to_us16_test(int line, const UTF_US32& str1, const UTF_US16& str2, boo
     UTF_test(line, UTF_uj16_cmpn(tmp.c_str(), buf, UTF_SIZE_T(tmp.size() + 1)) == 0);
 }
 
-int main(void)
+void UTF_fgets_test(const char *fname)
+{
+    FILE *fp;
+    UTF_UC16 buf[64];
+    UTF_C8 buf2[128];
+
+    fp = fopen(fname, "rb");
+    if (!fp)
+    {
+        UTF_test(__LINE__, fp != NULL);
+        return;
+    }
+
+    UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == buf);
+    UTF_test(__LINE__, UTF_cmp(buf, UTF_u("TEST\n")) == 0);
+    UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
+    UTF_test(__LINE__, UTF_cmp(buf2, "TEST\n") == 0);
+
+    UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == buf);
+    UTF_test(__LINE__, UTF_cmp(buf, UTF_u("ABC123\n")) == 0);
+    UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
+    UTF_test(__LINE__, UTF_cmp(buf2, "ABC123\n") == 0);
+
+    UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == buf);
+    UTF_test(__LINE__, UTF_cmp(buf, UTF_u("あいうえお\n")) == 0);
+    UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
+    UTF_test(__LINE__, UTF_cmp(buf2, "あいうえお\n") == 0);
+
+    UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == buf);
+    UTF_test(__LINE__, UTF_cmp(buf, UTF_u("漢字\n")) == 0);
+    UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
+    UTF_test(__LINE__, UTF_cmp(buf2, "漢字\n") == 0);
+
+    UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == NULL);
+
+    fclose(fp);
+}
+
+int main(int argc, char **argv)
 {
     g_failures = 0;
 
@@ -134,6 +172,9 @@ int main(void)
     u8_to_u_test(__LINE__, u8"\xF0\x28\x8C\xBC", UTF_u("?"), true);
     u8_to_u_test(__LINE__, u8"\xF0\x90\x28\xBC", UTF_u("?"), true);
     u8_to_u_test(__LINE__, u8"\xF0\x28\x8C\x28", UTF_u("?"), true);
+
+    if (argc >= 2)
+        UTF_fgets_test(argv[1]);
 
     if (g_failures)
     {
