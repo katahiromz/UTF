@@ -393,7 +393,7 @@ UTF_fgets(UT *str, int count, FILE *fp)
     if (count <= 0 || feof(fp))
         return NULL;
 
-    cw = fread(str, sizeof(UT), count, fp);
+    cw = fread(str, sizeof(UT), size_t(count), fp);
     if (!cw)
         return NULL;
 

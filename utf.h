@@ -127,7 +127,6 @@ UTF_uj8_len(const UTF_UC8 *uj8)
     UTF_SIZE_T len;
     for (len = 0; *uj8; ++len, ++uj8)
     {
-        ;
     }
     return len;
 }
@@ -138,7 +137,6 @@ UTF_j8_len(const UTF_C8 *j8)
     UTF_SIZE_T len;
     for (len = 0; *j8; ++len, ++j8)
     {
-        ;
     }
     return len;
 }
@@ -149,7 +147,6 @@ UTF_uj16_len(const UTF_UC16 *uj16)
     UTF_SIZE_T len;
     for (len = 0; *uj16; ++len, ++uj16)
     {
-        ;
     }
     return len;
 }
@@ -160,7 +157,6 @@ UTF_uj32_len(const UTF_UC32 *uj32)
     UTF_SIZE_T len;
     for (len = 0; *uj32; ++len, ++uj32)
     {
-        ;
     }
     return len;
 }
@@ -896,7 +892,7 @@ UTF8_fgets(UTF_UC8 *str, int count, FILE *fp)
     if (count <= 0 || feof(fp))
         return NULL;
 
-    cw = fread(str, sizeof(UTF_UC8), count, fp);
+    cw = fread(str, sizeof(UTF_UC8), size_t(count), fp);
     if (!cw)
         return NULL;
 
@@ -940,7 +936,7 @@ UTF16_fgets(UTF_UC16 *str, int count, FILE *fp)
     if (count <= 0 || feof(fp))
         return NULL;
 
-    cw = fread(str, sizeof(UTF_UC16), count, fp);
+    cw = fread(str, sizeof(UTF_UC16), size_t(count), fp);
     if (!cw)
         return NULL;
 
@@ -984,7 +980,7 @@ UTF32_fgets(UTF_UC32 *str, int count, FILE *fp)
     if (count <= 0 || feof(fp))
         return NULL;
 
-    cw = fread(str, sizeof(UTF_UC32), count, fp);
+    cw = fread(str, sizeof(UTF_UC32), size_t(count), fp);
     if (!cw)
         return NULL;
 
