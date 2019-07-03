@@ -32,7 +32,7 @@
 /* UTF_C8, UTF_UC8, UTF_UC16, UTF_UC32 --- characters */
 typedef char UTF_C8;
 typedef uint8_t UTF_UC8;
-#if defined(__cplusplus) && __cplusplus >= 201103L  /* C++11 */
+#if defined(__cplusplus) && (__cplusplus >= 201103L || _MSC_VER >= 1900) /* C++11 */
     #ifdef UTF_WIDE_IS_UTF16
         typedef wchar_t UTF_UC16;
     #else

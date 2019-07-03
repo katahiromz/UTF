@@ -1,6 +1,7 @@
 /* UTF --- UTF-8, UTF-16, UTF-32 conversion library
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include "utf.hpp"
 
@@ -91,24 +92,24 @@ void UTF_fgets_test(const char *fname)
     }
 
     UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == buf);
-    UTF_test(__LINE__, UTF_cmp(buf, UTF_u("TEST\n")) == 0);
+    UTF_test(__LINE__, UTF_uj16_cmp(buf, UTF_u("TEST\n")) == 0);
     UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
-    UTF_test(__LINE__, UTF_cmp(buf2, UTF_u8("TEST\n")) == 0);
+    UTF_test(__LINE__, UTF_j8_cmp(buf2, UTF_u8("TEST\n")) == 0);
 
     UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == buf);
-    UTF_test(__LINE__, UTF_cmp(buf, UTF_u("ABC123\n")) == 0);
+    UTF_test(__LINE__, UTF_uj16_cmp(buf, UTF_u("ABC123\n")) == 0);
     UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
-    UTF_test(__LINE__, UTF_cmp(buf2, UTF_u8("ABC123\n")) == 0);
+    UTF_test(__LINE__, UTF_j8_cmp(buf2, UTF_u8("ABC123\n")) == 0);
 
     UTF_test(__LINE__, UTF16_fgets(buf, 64, fp) == buf);
-    UTF_test(__LINE__, UTF_cmp(buf, UTF_u("あいうえお\n")) == 0);
+    UTF_test(__LINE__, UTF_uj16_cmp(buf, UTF_u("あいうえお\n")) == 0);
     UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
-    UTF_test(__LINE__, UTF_cmp(buf2, UTF_u8("あいうえお\n")) == 0);
+    UTF_test(__LINE__, UTF_j8_cmp(buf2, UTF_u8("あいうえお\n")) == 0);
 
     UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == buf);
-    UTF_test(__LINE__, UTF_cmp(buf, UTF_u("漢字\n")) == 0);
+    UTF_test(__LINE__, UTF_uj16_cmp(buf, UTF_u("漢字\n")) == 0);
     UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
-    UTF_test(__LINE__, UTF_cmp(buf2, UTF_u8("漢字\n")) == 0);
+    UTF_test(__LINE__, UTF_j8_cmp(buf2, UTF_u8("漢字\n")) == 0);
 
     UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == NULL);
 
@@ -162,16 +163,16 @@ int main(int argc, char **argv)
     u_to_u8_test(__LINE__, UTF_L("ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ"), UTF_u8("ᚠᛇᚻ᛫ᛒᛦᚦ᛫ᚠᚱᚩᚠᚢᚱ᛫ᚠᛁᚱᚪ᛫ᚷᛖᚻᚹᛦᛚᚳᚢᛗ"), true);
 #endif
 
-    u8_to_u_test(__LINE__, UTF_u8("\xA0"), UTF_u("?"), true); //
-    u8_to_u_test(__LINE__, UTF_u8("\xC3\x28"), UTF_u("?"), true);
-    u8_to_u_test(__LINE__, UTF_u8("\xE0\x80\x80"), UTF_u("?"), true);
-    u8_to_u_test(__LINE__, UTF_u8("\xE2\x28\xA1"), UTF_u("?"), true);
-    u8_to_u_test(__LINE__, UTF_u8("\xE2\x82\x28"), UTF_u("?"), true);
-    u8_to_u_test(__LINE__, UTF_u8("\xF0\x80\x80\x80"), UTF_u("?"), true);
-    u8_to_u_test(__LINE__, UTF_u8("\xF4\xBF\xBF\xBF"), UTF_u("?"), true);
-    u8_to_u_test(__LINE__, UTF_u8("\xF0\x28\x8C\xBC"), UTF_u("?"), true);
-    u8_to_u_test(__LINE__, UTF_u8("\xF0\x90\x28\xBC"), UTF_u("?"), true);
-    u8_to_u_test(__LINE__, UTF_u8("\xF0\x28\x8C\x28"), UTF_u("?"), true);
+    u8_to_u_test(__LINE__, "\xA0", UTF_u("?"), true); 
+    u8_to_u_test(__LINE__, "\xC3\x28", UTF_u("?"), true);
+    u8_to_u_test(__LINE__, "\xE0\x80\x80", UTF_u("?"), true);
+    u8_to_u_test(__LINE__, "\xE2\x28\xA1", UTF_u("?"), true);
+    u8_to_u_test(__LINE__, "\xE2\x82\x28", UTF_u("?"), true);
+    u8_to_u_test(__LINE__, "\xF0\x80\x80\x80", UTF_u("?"), true);
+    u8_to_u_test(__LINE__, "\xF4\xBF\xBF\xBF", UTF_u("?"), true);
+    u8_to_u_test(__LINE__, "\xF0\x28\x8C\xBC", UTF_u("?"), true);
+    u8_to_u_test(__LINE__, "\xF0\x90\x28\xBC", UTF_u("?"), true);
+    u8_to_u_test(__LINE__, "\xF0\x28\x8C\x28", UTF_u("?"), true);
 
     if (argc >= 2)
         UTF_fgets_test(argv[1]);

@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_HPP_
-#define UTF_HPP_    4   // Version 4
+#define UTF_HPP_    5   // Version 5
 
 #include "utf.h"
 
@@ -369,7 +369,7 @@ inline int UTF_cmp(const T *a, const T *b)
 }
 
 template <typename T>
-inline int UTF_cmp(const T *a, const T *b, size_t len)
+inline int UTF_cmpn(const T *a, const T *b, size_t len)
 {
     while (*a && *b)
     {
