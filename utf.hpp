@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_HPP_
-#define UTF_HPP_    3   // Version 3
+#define UTF_HPP_    4   // Version 4
 
 #include "utf.h"
 
