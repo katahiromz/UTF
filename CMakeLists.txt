@@ -51,6 +51,9 @@ endif()
 
 # executable
 add_executable(utf-test utf-test.cpp)
+if (MSVC)
+    target_compile_options(utf-test PRIVATE /source-charset:utf-8 /execution-charset:utf-8)
+endif()
 
 # test
 add_test(NAME utf-test COMMAND $<TARGET_FILE:utf-test> ${CMAKE_CURRENT_SOURCE_DIR}/TESTFILE.dat)
