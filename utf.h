@@ -925,7 +925,7 @@ UTF8_fgets(UTF_UC8 *str, int count, FILE *fp)
     if (i != cw)
     {
         diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
-        diff *= sizeof(UTF_UC8);
+        diff *= UTF_STATIC_CAST(long, sizeof(UTF_UC8));
         if (fseek(fp, diff, SEEK_CUR) != 0)
             return NULL;
     }
@@ -969,7 +969,7 @@ UTF16_fgets(UTF_UC16 *str, int count, FILE *fp)
     if (i != cw)
     {
         diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
-        diff *= sizeof(UTF_UC16);
+        diff *= UTF_STATIC_CAST(long, sizeof(UTF_UC16));
         if (fseek(fp, diff, SEEK_CUR) != 0)
             return NULL;
     }
@@ -1013,7 +1013,7 @@ UTF32_fgets(UTF_UC32 *str, int count, FILE *fp)
     if (i != cw)
     {
         diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
-        diff *= sizeof(UTF_UC32);
+        diff *= UTF_STATIC_CAST(long, sizeof(UTF_UC32));
         if (fseek(fp, diff, SEEK_CUR) != 0)
             return NULL;
     }

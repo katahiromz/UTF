@@ -422,7 +422,7 @@ UTF_fgets(UT *str, int count, FILE *fp)
     if (i != cw)
     {
         diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
-        diff *= sizeof(UT);
+        diff *= UTF_STATIC_CAST(long, sizeof(UT));
         if (fseek(fp, diff, SEEK_CUR) != 0)
             return NULL;
     }
