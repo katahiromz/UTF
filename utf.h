@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  18  /* Version 18 */
+#define UTF_H_  19  /* Version 19 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -58,12 +58,20 @@ typedef uint8_t UTF_UC8;
     /* #define UTF_DEFAULT_CHAR 0 */
 #endif
 
-#ifndef UTF_WIDE
+#ifndef UTF_u
     #ifdef UTF_WIDE_IS_UTF16
-        #define UTF_WIDE(str) L##str
+        #define UTF_u(str) L##str
     #else
-        #define UTF_WIDE(str) u##str
+        #define UTF_u(str) u##str
     #endif
+#endif
+
+#ifndef UTF_u8
+    #define UTF_u8(str) u8##str
+#endif
+
+#ifndef UTF_U
+    #define UTF_U(str) U##str
 #endif
 
 #ifndef UTF_SIZE_T
