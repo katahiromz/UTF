@@ -100,7 +100,7 @@ void UTF_fgets_test(const char *fname)
     UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
     UTF_test(__LINE__, UTF_cmp(buf2, "ABC123\n") == 0);
 
-    UTF_test(__LINE__, UTF_fgets(buf, 64, fp) == buf);
+    UTF_test(__LINE__, UTF16_fgets(buf, 64, fp) == buf);
     UTF_test(__LINE__, UTF_cmp(buf, UTF_u("あいうえお\n")) == 0);
     UTF_uj16_to_j8(buf, UTF_uj16_len(buf) + 1, buf2, 128);
     UTF_test(__LINE__, UTF_cmp(buf2, "あいうえお\n") == 0);

@@ -384,6 +384,51 @@ inline int UTF_cmp(const T *a, const T *b, size_t len)
     return 0;
 }
 
+template <typename UT>
+inline UT *
+UTF_fgets(UT *str, int count, FILE *fp)
+{
+    size_t i, cw;
+    long diff;
+    if (count <= 0 || feof(fp))
+        return NULL;
+
+    cw = fread(str, sizeof(UT), count, fp);
+    if (!cw)
+        return NULL;
+
+    for (i = 0; i < cw; ++i)
+    {
+        if (str[i] == '\n')
+        {
+            if (i && str[i - 1] == '\r')
+            {
+                str[i - 1] = '\n';
+                str[i] = 0;
+                ++i;
+            }
+            else
+            {
+                if (i + 1 != cw)
+                {
+                    ++i;
+                }
+                str[i] = 0;
+            }
+            break;
+        }
+    }
+
+    if (i != cw)
+    {
+        diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
+        diff *= sizeof(UT);
+        if (fseek(fp, diff, SEEK_CUR) != 0)
+            return NULL;
+    }
+    return str;
+}
+
 #ifdef UTF_WIDE_IS_UTF16
     #define UTF_L_to_U UTF_u_to_U
     #define UTF_L_to_u UTF_u_to_u

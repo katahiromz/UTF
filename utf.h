@@ -884,16 +884,15 @@ UTF_uj32_to_uj16(const UTF_UC32 *uj32, UTF_SIZE_T uj32size, UTF_UC16 *uj16, UTF_
     return UTF_SUCCESS;
 }
 
-template <typename UT>
-static __inline UT *
-UTF_fgets(UT *str, int count, FILE *fp)
+static __inline UTF_UC8 *
+UTF8_fgets(UTF_UC8 *str, int count, FILE *fp)
 {
     size_t i, cw;
     long diff;
     if (count <= 0 || feof(fp))
         return NULL;
 
-    cw = fread(str, sizeof(UT), count, fp);
+    cw = fread(str, sizeof(UTF_UC8), count, fp);
     if (!cw)
         return NULL;
 
@@ -922,7 +921,95 @@ UTF_fgets(UT *str, int count, FILE *fp)
     if (i != cw)
     {
         diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
-        diff *= sizeof(UT);
+        diff *= sizeof(UTF_UC8);
+        if (fseek(fp, diff, SEEK_CUR) != 0)
+            return NULL;
+    }
+    return str;
+}
+
+static __inline UTF_UC16 *
+UTF16_fgets(UTF_UC16 *str, int count, FILE *fp)
+{
+    size_t i, cw;
+    long diff;
+    if (count <= 0 || feof(fp))
+        return NULL;
+
+    cw = fread(str, sizeof(UTF_UC16), count, fp);
+    if (!cw)
+        return NULL;
+
+    for (i = 0; i < cw; ++i)
+    {
+        if (str[i] == '\n')
+        {
+            if (i && str[i - 1] == '\r')
+            {
+                str[i - 1] = '\n';
+                str[i] = 0;
+                ++i;
+            }
+            else
+            {
+                if (i + 1 != cw)
+                {
+                    ++i;
+                }
+                str[i] = 0;
+            }
+            break;
+        }
+    }
+
+    if (i != cw)
+    {
+        diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
+        diff *= sizeof(UTF_UC16);
+        if (fseek(fp, diff, SEEK_CUR) != 0)
+            return NULL;
+    }
+    return str;
+}
+
+static __inline UTF_UC32 *
+UTF32_fgets(UTF_UC32 *str, int count, FILE *fp)
+{
+    size_t i, cw;
+    long diff;
+    if (count <= 0 || feof(fp))
+        return NULL;
+
+    cw = fread(str, sizeof(UTF_UC32), count, fp);
+    if (!cw)
+        return NULL;
+
+    for (i = 0; i < cw; ++i)
+    {
+        if (str[i] == '\n')
+        {
+            if (i && str[i - 1] == '\r')
+            {
+                str[i - 1] = '\n';
+                str[i] = 0;
+                ++i;
+            }
+            else
+            {
+                if (i + 1 != cw)
+                {
+                    ++i;
+                }
+                str[i] = 0;
+            }
+            break;
+        }
+    }
+
+    if (i != cw)
+    {
+        diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
+        diff *= sizeof(UTF_UC32);
         if (fseek(fp, diff, SEEK_CUR) != 0)
             return NULL;
     }
