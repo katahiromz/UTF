@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  27  /* Version 27 */
+#define UTF_H_  28  /* Version 28 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -928,7 +928,7 @@ UTF8_fgets(UTF_UC8 *str, int count, FILE *fp)
         if (fseek(fp, diff, SEEK_CUR) != 0)
             return NULL;
     }
-    return str;
+    return str[0] ? str : NULL;
 }
 
 static __inline UTF_UC16 *
@@ -982,7 +982,7 @@ UTF16_fgets(UTF_UC16 *str, int count, FILE *fp)
         if (fseek(fp, diff, SEEK_CUR) != 0)
             return NULL;
     }
-    return str;
+    return str[0] ? str : NULL;
 }
 
 static __inline UTF_UC32 *
@@ -1036,7 +1036,7 @@ UTF32_fgets(UTF_UC32 *str, int count, FILE *fp)
         if (fseek(fp, diff, SEEK_CUR) != 0)
             return NULL;
     }
-    return str;
+    return str[0] ? str : NULL;
 }
 
 #endif  /* ndef UTF_H_ */

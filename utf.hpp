@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_HPP_
-#define UTF_HPP_    6   // Version 6
+#define UTF_HPP_    7   // Version 7
 
 #include "utf.h"
 
@@ -436,7 +436,7 @@ UTF_fgets(UT *str, int count, FILE *fp)
         if (fseek(fp, diff, SEEK_CUR) != 0)
             return NULL;
     }
-    return str;
+    return str[0] ? str : NULL;
 }
 
 #ifdef UTF_WIDE_IS_UTF16
