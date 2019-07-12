@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  24  /* Version 24 */
+#define UTF_H_  25  /* Version 2 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
@@ -911,6 +911,12 @@ UTF8_fgets(UTF_UC8 *str, int count, FILE *fp)
         }
     }
 
+    if (i == count)
+    {
+        --i;
+        str[i] = 0;
+    }
+
     if (i != cw)
     {
         diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
@@ -955,6 +961,12 @@ UTF16_fgets(UTF_UC16 *str, int count, FILE *fp)
         }
     }
 
+    if (i == count)
+    {
+        --i;
+        str[i] = 0;
+    }
+
     if (i != cw)
     {
         diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
@@ -997,6 +1009,12 @@ UTF32_fgets(UTF_UC32 *str, int count, FILE *fp)
             }
             break;
         }
+    }
+
+    if (i == count)
+    {
+        --i;
+        str[i] = 0;
     }
 
     if (i != cw)
