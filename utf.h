@@ -985,6 +985,74 @@ UTF16_fgets(UTF_UC16 *str, int count, FILE *fp)
     return str[0] ? str : NULL;
 }
 
+static __inline UTF_UC16
+UTF_XE(UTF_UC16 uc16)
+{
+    UTF_UC8 lo = (UTF_UC8)uc16;
+    UTF_UC8 hi = (UTF_UC8)(uc16 >> 8);
+    return (((UTF_UC16)lo) << 8) | hi;
+}
+
+static __inline UTF_UC16 *
+UTF16XE_fgets(UTF_UC16 *str, int count, FILE *fp)
+{
+    size_t i, cw;
+    long diff;
+    if (count <= 0 || feof(fp))
+        return NULL;
+
+    cw = fread(str, sizeof(UTF_UC16), UTF_STATIC_CAST(size_t, count), fp);
+    if (!cw)
+        return NULL;
+
+    for (i = 0; i < cw; ++i)
+    {
+        if (str[i] == UTF_XE('\n'))
+        {
+            if (i && str[i - 1] == UTF_XE('\r'))
+            {
+                str[i - 1] = UTF_XE('\n');
+                str[i] = 0;
+                ++i;
+            }
+            else
+            {
+                if (i + 1 != count)
+                {
+                    ++i;
+                }
+                str[i] = 0;
+            }
+            break;
+        }
+    }
+
+    if (i == count)
+    {
+        --i;
+        str[i] = 0;
+    }
+    else if (i == cw && cw != count)
+    {
+        str[i] = 0;
+    }
+
+    if (i != cw)
+    {
+        diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
+        diff *= UTF_STATIC_CAST(long, sizeof(UTF_UC16));
+        if (fseek(fp, diff, SEEK_CUR) != 0)
+            return NULL;
+    }
+
+    for (i = 0; str[i]; ++i)
+    {
+        str[i] = UTF_XE(str[i]);
+    }
+
+    return str[0] ? str : NULL;
+}
+
 static __inline UTF_UC32 *
 UTF32_fgets(UTF_UC32 *str, int count, FILE *fp)
 {
