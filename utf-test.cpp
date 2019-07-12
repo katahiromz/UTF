@@ -128,15 +128,15 @@ void UTF_fgets_test2(const char *fname)
         return;
     }
 
-    UTF_test(__LINE__, UTF8_fgets((UTF_UC8 *)buf, 10, fp) == (UTF_UC8 *)buf);
+    UTF_test(__LINE__, UTF_fgets(buf, 10, fp) == buf);
     UTF_test(__LINE__, strcmp(buf, "012345678") == 0);
-    UTF_test(__LINE__, UTF8_fgets((UTF_UC8 *)buf, 10, fp) == (UTF_UC8 *)buf);
+    UTF_test(__LINE__, UTF_fgets(buf, 10, fp) == buf);
     UTF_test(__LINE__, strcmp(buf, "901234567") == 0);
-    UTF_test(__LINE__, UTF8_fgets((UTF_UC8 *)buf, 10, fp) == (UTF_UC8 *)buf);
+    UTF_test(__LINE__, UTF_fgets(buf, 10, fp) == buf);
     UTF_test(__LINE__, strcmp(buf, "890123456") == 0);
-    UTF_test(__LINE__, UTF8_fgets((UTF_UC8 *)buf, 10, fp) == (UTF_UC8 *)buf);
+    UTF_test(__LINE__, UTF_fgets(buf, 10, fp) == buf);
     UTF_test(__LINE__, strcmp(buf, "78901234") == 0);
-    UTF_test(__LINE__, UTF8_fgets((UTF_UC8 *)buf, 10, fp) == NULL);
+    UTF_test(__LINE__, UTF_fgets(buf, 10, fp) == NULL);
 
     fclose(fp);
 }

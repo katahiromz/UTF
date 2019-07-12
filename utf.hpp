@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_HPP_
-#define UTF_HPP_    5   // Version 5
+#define UTF_HPP_    6   // Version 6
 
 #include "utf.h"
 
@@ -409,7 +409,7 @@ UTF_fgets(UT *str, int count, FILE *fp)
             }
             else
             {
-                if (i + 1 != cw)
+                if (i + 1 != count)
                 {
                     ++i;
                 }
@@ -417,6 +417,16 @@ UTF_fgets(UT *str, int count, FILE *fp)
             }
             break;
         }
+    }
+
+    if (i == count)
+    {
+        --i;
+        str[i] = 0;
+    }
+    else if (i == cw && cw != count)
+    {
+        str[i] = 0;
     }
 
     if (i != cw)
