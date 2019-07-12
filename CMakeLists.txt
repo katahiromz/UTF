@@ -56,6 +56,6 @@ if (MSVC)
 endif()
 
 # test
-add_test(NAME utf-test COMMAND $<TARGET_FILE:utf-test> ${CMAKE_CURRENT_SOURCE_DIR}/TESTFILE.dat)
+add_test(NAME utf-test COMMAND $<TARGET_FILE:utf-test> ${CMAKE_CURRENT_SOURCE_DIR}/DATA1.dat ${CMAKE_CURRENT_SOURCE_DIR}/DATA2.dat)
 
 ##############################################################################
