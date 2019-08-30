@@ -6,3 +6,14 @@
 UTF is C/C++ UTF-8, UTF-16, UTF-32 conversion library by Katayama Hirofumi MZ.
 
 License: MIT
+
+## Note
+
+If you are programming on Windows, you may want to use these APIs:
+
+```c
+MultiByteToWideChar(CP_UTF8, 0, ...)
+MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, ...)
+WideCharToMultiByte(CP_UTF8, 0, ...)
+IsTextUnicode(...)
+```
