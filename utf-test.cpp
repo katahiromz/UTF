@@ -116,6 +116,31 @@ void UTF_fgets_test(const char *fname)
     fclose(fp);
 }
 
+void UTF_fgets_test2(const char *fname)
+{
+    FILE *fp;
+    char buf[128];
+
+    fp = fopen(fname, "rb");
+    if (!fp)
+    {
+        UTF_test(__LINE__, fp != NULL);
+        return;
+    }
+
+    UTF_test(__LINE__, UTF_fgets(buf, 10, fp) == buf);
+    UTF_test(__LINE__, strcmp(buf, "012345678") == 0);
+    UTF_test(__LINE__, UTF_fgets(buf, 10, fp) == buf);
+    UTF_test(__LINE__, strcmp(buf, "901234567") == 0);
+    UTF_test(__LINE__, UTF_fgets(buf, 10, fp) == buf);
+    UTF_test(__LINE__, strcmp(buf, "890123456") == 0);
+    UTF_test(__LINE__, UTF_fgets(buf, 10, fp) == buf);
+    UTF_test(__LINE__, strcmp(buf, "78901234") == 0);
+    UTF_test(__LINE__, UTF_fgets(buf, 10, fp) == NULL);
+
+    fclose(fp);
+}
+
 int main(int argc, char **argv)
 {
     g_failures = 0;
@@ -176,6 +201,9 @@ int main(int argc, char **argv)
 
     if (argc >= 2)
         UTF_fgets_test(argv[1]);
+
+    if (argc >= 3)
+        UTF_fgets_test2(argv[2]);
 
     if (g_failures)
     {

@@ -2,7 +2,7 @@
  * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_HPP_
-#define UTF_HPP_    5   // Version 5
+#define UTF_HPP_    7   // Version 7
 
 #include "utf.h"
 
@@ -409,7 +409,7 @@ UTF_fgets(UT *str, int count, FILE *fp)
             }
             else
             {
-                if (i + 1 != cw)
+                if (i + 1 != count)
                 {
                     ++i;
                 }
@@ -419,6 +419,16 @@ UTF_fgets(UT *str, int count, FILE *fp)
         }
     }
 
+    if (i == count)
+    {
+        --i;
+        str[i] = 0;
+    }
+    else if (i == cw && cw != count)
+    {
+        str[i] = 0;
+    }
+
     if (i != cw)
     {
         diff = UTF_STATIC_CAST(long, i) - UTF_STATIC_CAST(long, cw);
@@ -426,7 +436,7 @@ UTF_fgets(UT *str, int count, FILE *fp)
         if (fseek(fp, diff, SEEK_CUR) != 0)
             return NULL;
     }
-    return str;
+    return str[0] ? str : NULL;
 }
 
 #ifdef UTF_WIDE_IS_UTF16
