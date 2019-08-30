@@ -12,6 +12,7 @@ License: MIT
 If you are programming on Windows, you may want to use these APIs:
 
 ```c
+#include <windows.h>
 MultiByteToWideChar(CP_UTF8, 0, ...);
 MultiByteToWideChar(CP_UTF8, MB_ERR_INVALID_CHARS, ...);
 WideCharToMultiByte(CP_UTF8, 0, ...);
