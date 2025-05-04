@@ -1,10 +1,8 @@
 # CMakeLists.txt --- CMake project settings
-#    ex) cmake -G "Visual Studio 9 2008" .
-#    ex) cmake -DCMAKE_BUILD_TYPE=Release -G "MSYS Makefiles" .
 ##############################################################################
 
 # CMake minimum version
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 
 # enable testing
 enable_testing()
