@@ -1,13 +1,12 @@
 /* UTF --- UTF-8, UTF-16, UTF-32 conversion library
- * Copyright (C) 2019 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
+ * Copyright (C) 2019-2025 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  29  /* Version 29 */
+#define UTF_H_  30 /* Version 30 */
 
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
 #if defined(__cplusplus) && __cplusplus >= 201103L  /* C++11 */
-    #include <cstdbool>
     #include <cstdint>
 #elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L  /* C99 */
     #include <stdbool.h>
