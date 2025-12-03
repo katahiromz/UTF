@@ -1187,4 +1187,6 @@ UTF32XE_fgets(UTF_UC32 *str, int count, FILE *fp)
 	return str[0] ? str : NULL;
 }
 
+#include "utf_getline.h"
+
 #endif  /* ndef UTF_H_ */
