@@ -4,6 +4,8 @@
 #ifndef UTF_H_
 #define UTF_H_  30 /* Version 30 */
 
+#pragma once
+
 /* bool, true, false */
 /* uint8_t, uint16_t, uint32_t */
 #if defined(__cplusplus) && __cplusplus >= 201103L  /* C++11 */
