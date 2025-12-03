@@ -2,7 +2,7 @@
  * Copyright (C) 2019-2025 Katayama Hirofumi MZ <katayama.hirofumi.mz@gmail.com>
  */
 #ifndef UTF_H_
-#define UTF_H_  30 /* Version 30 */
+#define UTF_H_  31 /* Version 31 */
 
 #pragma once
 
