@@ -16,7 +16,7 @@
 #endif
 
 /* internal: ensure capacity for element_count elements (not bytes) */
-static __inline int
+static inline int
 utf_ensure_capacity(void **pbuf, UTF_SIZE_T *pcap, UTF_SIZE_T needed_elems, size_t elem_size)
 {
 	UTF_SIZE_T cap = *pcap;

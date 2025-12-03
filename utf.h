@@ -90,7 +90,7 @@ typedef enum UTF_RET
 	UTF_INSUFFICIENT_BUFFER = 2
 } UTF_RET;
 
-static __inline int
+static inline int
 UTF_uc8_count(UTF_UC8 uc8)
 {
 	if (uc8 < 0x80) return 1;
@@ -100,25 +100,25 @@ UTF_uc8_count(UTF_UC8 uc8)
 	return 0;
 }
 
-static __inline bool
+static inline bool
 UTF_uc8_is_trail(UTF_UC8 uc8)
 {
 	return 0x80 <= uc8 && uc8 < 0xC0;
 }
 
-static __inline bool
+static inline bool
 UTF_uc16_is_surrogate_high(UTF_UC16 uc16)
 {
 	return 0xD800 <= uc16 && uc16 < 0xDC00;
 }
 
-static __inline bool
+static inline bool
 UTF_uc16_is_surrogate_low(UTF_UC16 uc16)
 {
 	return 0xDC00 <= uc16 && uc16 < 0xE000;
 }
 
-static __inline UTF_SIZE_T
+static inline UTF_SIZE_T
 UTF_uj8_len(const UTF_UC8 *uj8)
 {
 	UTF_SIZE_T len;
@@ -128,7 +128,7 @@ UTF_uj8_len(const UTF_UC8 *uj8)
 	return len;
 }
 
-static __inline UTF_SIZE_T
+static inline UTF_SIZE_T
 UTF_j8_len(const UTF_C8 *j8)
 {
 	UTF_SIZE_T len;
@@ -138,7 +138,7 @@ UTF_j8_len(const UTF_C8 *j8)
 	return len;
 }
 
-static __inline UTF_SIZE_T
+static inline UTF_SIZE_T
 UTF_uj16_len(const UTF_UC16 *uj16)
 {
 	UTF_SIZE_T len;
@@ -148,7 +148,7 @@ UTF_uj16_len(const UTF_UC16 *uj16)
 	return len;
 }
 
-static __inline UTF_SIZE_T
+static inline UTF_SIZE_T
 UTF_uj32_len(const UTF_UC32 *uj32)
 {
 	UTF_SIZE_T len;
@@ -158,7 +158,7 @@ UTF_uj32_len(const UTF_UC32 *uj32)
 	return len;
 }
 
-static __inline int
+static inline int
 UTF_uj8_cmp(const UTF_UC8 *uj8a, const UTF_UC8 *uj8b)
 {
 	while (*uj8a && *uj8b)
@@ -173,7 +173,7 @@ UTF_uj8_cmp(const UTF_UC8 *uj8a, const UTF_UC8 *uj8b)
 	return 0;
 }
 
-static __inline int
+static inline int
 UTF_j8_cmp(const UTF_C8 *j8a, const UTF_C8 *j8b)
 {
 	while (*j8a && *j8b)
@@ -188,7 +188,7 @@ UTF_j8_cmp(const UTF_C8 *j8a, const UTF_C8 *j8b)
 	return 0;
 }
 
-static __inline int
+static inline int
 UTF_uj16_cmp(const UTF_UC16 *uj16a, const UTF_UC16 *uj16b)
 {
 	while (*uj16a && *uj16b)
@@ -203,7 +203,7 @@ UTF_uj16_cmp(const UTF_UC16 *uj16a, const UTF_UC16 *uj16b)
 	return 0;
 }
 
-static __inline int
+static inline int
 UTF_uj32_cmp(const UTF_UC32 *uj32a, const UTF_UC32 *uj32b)
 {
 	while (*uj32a && *uj32b)
@@ -218,7 +218,7 @@ UTF_uj32_cmp(const UTF_UC32 *uj32a, const UTF_UC32 *uj32b)
 	return 0;
 }
 
-static __inline int
+static inline int
 UTF_uj8_cmpn(const UTF_UC8 *uj8a, const UTF_UC8 *uj8b, UTF_SIZE_T len)
 {
 	while (*uj8a && *uj8b)
@@ -234,7 +234,7 @@ UTF_uj8_cmpn(const UTF_UC8 *uj8a, const UTF_UC8 *uj8b, UTF_SIZE_T len)
 	return 0;
 }
 
-static __inline int
+static inline int
 UTF_j8_cmpn(const UTF_C8 *j8a, const UTF_C8 *j8b, UTF_SIZE_T len)
 {
 	while (*j8a && *j8b)
@@ -250,7 +250,7 @@ UTF_j8_cmpn(const UTF_C8 *j8a, const UTF_C8 *j8b, UTF_SIZE_T len)
 	return 0;
 }
 
-static __inline int
+static inline int
 UTF_uj16_cmpn(const UTF_UC16 *uj16a, const UTF_UC16 *uj16b, UTF_SIZE_T len)
 {
 	while (*uj16a && *uj16b)
@@ -266,7 +266,7 @@ UTF_uj16_cmpn(const UTF_UC16 *uj16a, const UTF_UC16 *uj16b, UTF_SIZE_T len)
 	return 0;
 }
 
-static __inline int
+static inline int
 UTF_uj32_cmpn(const UTF_UC32 *uj32a, const UTF_UC32 *uj32b, UTF_SIZE_T len)
 {
 	while (*uj32a && *uj32b)
@@ -282,7 +282,7 @@ UTF_uj32_cmpn(const UTF_UC32 *uj32a, const UTF_UC32 *uj32b, UTF_SIZE_T len)
 	return 0;
 }
 
-static __inline bool
+static inline bool
 UTF_uc32_to_uc8(UTF_UC32 uc32, UTF_UC8 uc8[4])
 {
 	if (uc32 > 0x10FFFF)
@@ -320,7 +320,7 @@ UTF_uc32_to_uc8(UTF_UC32 uc32, UTF_UC8 uc8[4])
 	return true;
 }
 
-static __inline bool
+static inline bool
 UTF_uc8_to_uc32(const UTF_UC8 uc8[4], UTF_UC32 *uc32)
 {
 	int count = UTF_uc8_count(uc8[0]);
@@ -380,7 +380,7 @@ UTF_uc8_to_uc32(const UTF_UC8 uc8[4], UTF_UC32 *uc32)
 	return true;
 }
 
-static __inline bool
+static inline bool
 UTF_uc32_to_uc16(UTF_UC32 uc32, UTF_UC16 uc16[2])
 {
 	if (uc32 > 0x10FFFF)
@@ -400,7 +400,7 @@ UTF_uc32_to_uc16(UTF_UC32 uc32, UTF_UC16 uc16[2])
 	return true;
 }
 
-static __inline bool
+static inline bool
 UTF_uc16_to_uc32(const UTF_UC16 uc16[4], UTF_UC32 *uc32)
 {
 	if (UTF_uc16_is_surrogate_high(uc16[0]))
@@ -433,21 +433,21 @@ UTF_uc16_to_uc32(const UTF_UC16 uc16[4], UTF_UC32 *uc32)
 	}
 }
 
-static __inline bool
+static inline bool
 UTF_uc8_to_uc16(const UTF_UC8 uc8[4], UTF_UC16 uc16[2])
 {
 	UTF_UC32 uc32;
 	return UTF_uc8_to_uc32(uc8, &uc32) && UTF_uc32_to_uc16(uc32, uc16);
 }
 
-static __inline bool
+static inline bool
 UTF_uc16_to_uc8(const UTF_UC16 uc16[2], UTF_UC8 uc8[4])
 {
 	UTF_UC32 uc32;
 	return UTF_uc16_to_uc32(uc16, &uc32) && UTF_uc32_to_uc8(uc32, uc8);
 }
 
-static __inline UTF_RET
+static inline UTF_RET
 UTF_uj8_to_uj16(const UTF_UC8 *uj8, UTF_SIZE_T uj8size, UTF_UC16 *uj16, UTF_SIZE_T uj16size)
 {
 	UTF_UC8 uc8[4];
@@ -532,13 +532,13 @@ UTF_uj8_to_uj16(const UTF_UC8 *uj8, UTF_SIZE_T uj8size, UTF_UC16 *uj16, UTF_SIZE
 	return UTF_SUCCESS;
 }
 
-static __inline UTF_RET
+static inline UTF_RET
 UTF_j8_to_uj16(const UTF_C8 *j8, UTF_SIZE_T j8size, UTF_UC16 *uj16, UTF_SIZE_T uj16size)
 {
 	return UTF_uj8_to_uj16(UTF_REINTERPRET_CAST(const UTF_UC8 *, j8), j8size, uj16, uj16size);
 }
 
-static __inline UTF_RET
+static inline UTF_RET
 UTF_uj8_to_uj32(const UTF_UC8 *uj8, UTF_SIZE_T uj8size, UTF_UC32 *uj32, UTF_SIZE_T uj32size)
 {
 	UTF_UC8 uc8[4];
@@ -605,13 +605,13 @@ UTF_uj8_to_uj32(const UTF_UC8 *uj8, UTF_SIZE_T uj8size, UTF_UC32 *uj32, UTF_SIZE
 	return UTF_SUCCESS;
 }
 
-static __inline UTF_RET
+static inline UTF_RET
 UTF_j8_to_uj32(const UTF_C8 *j8, UTF_SIZE_T j8size, UTF_UC32 *uj32, UTF_SIZE_T uj32size)
 {
 	return UTF_uj8_to_uj32(UTF_REINTERPRET_CAST(const UTF_UC8 *, j8), j8size, uj32, uj32size);
 }
 
-static __inline UTF_RET
+static inline UTF_RET
 UTF_uj16_to_uj8(const UTF_UC16 *uj16, UTF_SIZE_T uj16size, UTF_UC8 *uj8, UTF_SIZE_T uj8size)
 {
 	UTF_UC16 uc16[2];
@@ -701,13 +701,13 @@ UTF_uj16_to_uj8(const UTF_UC16 *uj16, UTF_SIZE_T uj16size, UTF_UC8 *uj8, UTF_SIZ
 	return UTF_SUCCESS;
 }
 
-static __inline UTF_RET
+static inline UTF_RET
 UTF_uj16_to_j8(const UTF_UC16 *uj16, UTF_SIZE_T uj16size, UTF_C8 *j8, UTF_SIZE_T c8size)
 {
 	return UTF_uj16_to_uj8(uj16, uj16size, UTF_REINTERPRET_CAST(UTF_UC8 *, j8), c8size);
 }
 
-static __inline UTF_RET
+static inline UTF_RET
 UTF_uj16_to_uj32(const UTF_UC16 *uj16, UTF_SIZE_T uj16size, UTF_UC32 *uj32, UTF_SIZE_T uj32size)
 {
 	UTF_UC16 uc16[2];
@@ -768,7 +768,7 @@ UTF_uj16_to_uj32(const UTF_UC16 *uj16, UTF_SIZE_T uj16size, UTF_UC32 *uj32, UTF_
 	return UTF_SUCCESS;
 }
 
-static __inline UTF_RET
+static inline UTF_RET
 UTF_uj32_to_uj8(const UTF_UC32 *uj32, UTF_SIZE_T uj32size, UTF_UC8 *uj8, UTF_SIZE_T uj8size)
 {
 	UTF_UC8 uc8[4];
@@ -832,13 +832,13 @@ UTF_uj32_to_uj8(const UTF_UC32 *uj32, UTF_SIZE_T uj32size, UTF_UC8 *uj8, UTF_SIZ
 	return UTF_SUCCESS;
 }
 
-static __inline UTF_RET
+static inline UTF_RET
 UTF_uj32_to_j8(const UTF_UC32 *uj32, UTF_SIZE_T uj32size, UTF_C8 *j8, UTF_SIZE_T j8size)
 {
 	return UTF_uj32_to_uj8(uj32, uj32size, UTF_REINTERPRET_CAST(UTF_UC8 *, j8), j8size);
 }
 
-static __inline UTF_RET
+static inline UTF_RET
 UTF_uj32_to_uj16(const UTF_UC32 *uj32, UTF_SIZE_T uj32size, UTF_UC16 *uj16, UTF_SIZE_T uj16size)
 {
 	UTF_UC16 uc16[2];
@@ -881,7 +881,7 @@ UTF_uj32_to_uj16(const UTF_UC32 *uj32, UTF_SIZE_T uj32size, UTF_UC16 *uj16, UTF_
 	return UTF_SUCCESS;
 }
 
-static __inline UTF_UC8 *
+static inline UTF_UC8 *
 UTF8_fgets(UTF_UC8 *str, int count, FILE *fp)
 {
 	size_t i, cw;
@@ -935,7 +935,7 @@ UTF8_fgets(UTF_UC8 *str, int count, FILE *fp)
 	return str[0] ? str : NULL;
 }
 
-static __inline UTF_UC16 *
+static inline UTF_UC16 *
 UTF16_fgets(UTF_UC16 *str, int count, FILE *fp)
 {
 	size_t i, cw;
@@ -989,7 +989,7 @@ UTF16_fgets(UTF_UC16 *str, int count, FILE *fp)
 	return str[0] ? str : NULL;
 }
 
-static __inline UTF_UC16
+static inline UTF_UC16
 UTF16_XE(UTF_UC16 uc16)
 {
 	UTF_UC8 lo = (UTF_UC8)uc16;
@@ -997,7 +997,7 @@ UTF16_XE(UTF_UC16 uc16)
 	return (((UTF_UC16)lo) << 8) | hi;
 }
 
-static __inline UTF_UC16 *
+static inline UTF_UC16 *
 UTF16XE_fgets(UTF_UC16 *str, int count, FILE *fp)
 {
 	size_t i, cw;
@@ -1057,7 +1057,7 @@ UTF16XE_fgets(UTF_UC16 *str, int count, FILE *fp)
 	return str[0] ? str : NULL;
 }
 
-static __inline UTF_UC32 *
+static inline UTF_UC32 *
 UTF32_fgets(UTF_UC32 *str, int count, FILE *fp)
 {
 	size_t i, cw;
@@ -1111,7 +1111,7 @@ UTF32_fgets(UTF_UC32 *str, int count, FILE *fp)
 	return str[0] ? str : NULL;
 }
 
-static __inline UTF_UC32
+static inline UTF_UC32
 UTF32_XE(UTF_UC32 uc32)
 {
 #if defined(__GNUC__) || defined(__clang__)
@@ -1129,7 +1129,7 @@ UTF32_XE(UTF_UC32 uc32)
 #endif
 }
 
-static __inline UTF_UC32 *
+static inline UTF_UC32 *
 UTF32XE_fgets(UTF_UC32 *str, int count, FILE *fp)
 {
 	size_t i, cw;
