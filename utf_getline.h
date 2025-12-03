@@ -59,7 +59,7 @@ utf_ensure_capacity(void **pbuf, UTF_SIZE_T *pcap, UTF_SIZE_T needed_elems, size
 }
 
 /* UTF-16 host-endian, chunked reader */
-inline UTF_UC16 *
+static inline UTF_UC16 *
 UTF16_getline(FILE *fp)
 {
 	if (!fp || feof(fp))
@@ -180,7 +180,7 @@ UTF16_getline(FILE *fp)
 }
 
 /* UTF-16 file-endian (raw/byte-swapped) */
-inline UTF_UC16 *
+static inline UTF_UC16 *
 UTF16XE_getline(FILE *fp)
 {
 	if (!fp || feof(fp))
@@ -310,7 +310,7 @@ UTF16XE_getline(FILE *fp)
 }
 
 /* UTF-32 host-endian, chunked reader */
-inline UTF_UC32 *
+static inline UTF_UC32 *
 UTF32_getline(FILE *fp)
 {
 	if (!fp || feof(fp))
@@ -414,7 +414,7 @@ UTF32_getline(FILE *fp)
 }
 
 /* UTF-32 file-endian (raw/byte-swapped) */
-inline UTF_UC32 *
+static inline UTF_UC32 *
 UTF32XE_getline(FILE *fp)
 {
 	if (!fp || feof(fp))
